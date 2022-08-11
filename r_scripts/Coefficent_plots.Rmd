@@ -1,0 +1,272 @@
+---
+title: "Extension typologies and sustainable intensification: Evidence from West Africa"
+subtitle: "Coefficent Plots"
+author: ''
+date: "Last updated: `r Sys.time()`"
+output: 
+ bookdown::pdf_document2:
+    keep_tex: true
+    template: ../helper_utilities/my_templet.tex
+    #highlight: zenburn
+header-includes:
+   - \usepackage[margin=2.8cm]{geometry}
+   - \renewcommand{\contentsname}{Table of Contents}
+   - \usepackage{enumitem}
+   - \usepackage{pifont}
+   - \renewcommand{\labelitemi}{$\rightarrow$}
+   - \usepackage{tocloft}
+   - \renewcommand\cftsecleader{\cftdotfill{\cftdotsep}}
+   - \usepackage{hyperref}
+   - \hypersetup{linkcolor = blue}
+   - \usepackage{hanging}
+   - \usepackage[T1]{fontenc}
+   - \usepackage{graphicx}
+   - \usepackage{booktabs,threeparttablex}
+   - \usepackage{pdflscape}
+   - \usepackage{fvextra}
+   - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+   - \usepackage{lmodern}
+   - \usepackage{nimbusmono}
+   - \renewcommand{\thetable}{SM\arabic{table}}
+   - \setlength{\cfttabnumwidth}{1cm}
+
+toc: false
+toccolor: 'blue'
+mainfont: 'lm'
+toc-title: "Table of Contents"
+---
+
+```{r setup, include=FALSE, warning=FALSE, comment=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE,
+  tidy = TRUE,
+  tidy.opts = list(width.cutoff = 60),
+  out.width = "100%"
+)
+
+options(width = 100)
+# load the required libraries
+
+#library(showtext)
+#showtext_auto()
+
+
+# load the required libraries
+pacman::p_load(
+jsonlite,
+sjlabelled,
+labelled,
+dataMaid,
+plotly,
+wesanderson,
+ggthemes,
+hrbrthemes,
+sjmisc,
+expss,
+haven,
+knitr,
+kableExtra,
+ggstream,
+ggstatsplot,
+highcharter,
+tidyverse
+)
+```
+\newpage
+\tableofcontents
+\newpage
+\listoftables
+\newpage
+
+```{r, echo=FALSE}
+coeff_tbl <- read_csv(here::here("figures","/coefficent_table.csv"))
+
+```
+```{r}
+source("../helper_utilities/Utils.R", local = knitr::knit_global())
+```
+
+
+```{r}
+palette_1 <- c("#ba324f","#04395e","#70a288","#6f2dbd","#d5896f")
+palette_2 <- c("#dcd6f7","#a6b1e1","#b4869f","#985f6f","#4e4c67")
+palette_3 <- c("#8ecae6","#219ebc","#126782","#023047","#ffb703","#fd9e02","#fb8500")
+palette_4 <- c("#21295c","#1b3b6f","#065a82","#1c7293","#9eb3c2")
+palette_5 <- c("#8ecae6","#219ebc","#023047","#ffb703","#fb8500")
+palette_6 <- c("#0A7029", "#0073C2", "#FF0000", "#202020")
+palette_grey <- c("#d9dcd6","#d9dcd6","#d9dcd6","#d9dcd6")
+```
+
+
+# Write a generic function (Line Plots)
+```{r}
+plot_coefficents <- function(df, tbl_Num=2, X="var_name2", is_dfe=TRUE, use_color=palette_5, fw_scales="free_y", caption="Write a caption here"){
+  
+  df_tbl_1 <- df%>%
+  filter(tbl_num==tbl_Num)
+
+  plt_tbl_1 <- 
+    ggplot(df_tbl_1, aes_string(x = X, y = "coef", colour = "var_name2")) +
+    geom_hline(
+      yintercept = 0,
+      size = 0.3,
+      color = "grey"
+    ) +
+    geom_point(position = position_dodge(0.3), size = 3, shape=15) +
+    geom_errorbar(
+      aes_string(ymin = "ci_low", ymax = "ci_high"), 
+      position = position_dodge(0.4),
+      width = 0.03,
+      size=0.8
+    ) +
+    geom_text(
+      aes_string(label = "p_label"),
+      position = position_dodge(0.6),
+      #vjust = 0.5 * -1.5,
+      hjust = -0.2,
+      show.legend = FALSE,
+      size = 4,
+      family = my_font
+    ) +
+    scale_color_manual(values = use_color) +
+  # scale_x_discrete(labels=c("Adoption", "Area under\nadoption (ha)")) +
+    facet_wrap(~labels2, scales = fw_scales) +
+    labs(
+      y = "Estimates(95% Robust CI)",
+      title = "",
+      subtitle = "",
+      caption = caption,
+      x = ""
+    ) +
+    ggthemes::theme_few() +
+    theme(
+      legend.position = "none",
+      text = element_text(family = my_font, size = 14),
+      #strip.background = element_rect(),
+      panel.border = element_rect(size = 0, fill = NA),
+      axis.text.x = ggtext::element_markdown(),
+      strip.text = element_text(
+        family = my_font,
+        size = 14,
+        color = "#4D4D4D"
+      ))
+  if (is_dfe) {
+    file_name <- paste0(here::here("figures","table_line_dfe_"), tbl_Num, ".png")
+  } else {
+    file_name <- paste0(here::here("figures","table_line_"), tbl_Num, ".png")
+  }
+  
+  ggsave(filename = file_name, plt_tbl_1, width = 30, height = 24, units = "cm")
+  return(plt_tbl_1)
+  
+}
+```
+
+# Bar Plots
+```{r}
+
+plot_coefficents_bar <- function(df,tbl_Num=2, X="var_name2", is_dfe=TRUE, use_color = palette_5, fw_scales ="free_y", caption="if there is caption add it here"){
+df_tbl_1 <- df%>%
+  filter(tbl_num==tbl_Num)
+plt_tbl_1 <- 
+ggplot(df_tbl_1, aes(y=coef, x=var_name2, fill=var_name2)) +
+  geom_col(position = "dodge", width = 0.35)+
+    geom_errorbar(
+      aes_string(ymin = "ci_low", ymax = "ci_high"), 
+      position = position_dodge(0.4),
+      width = 0.035,
+      size=0.6
+      
+    ) +
+  geom_hline(
+      yintercept = 0,
+      size = 0.3,
+      color = "grey"
+    ) +
+  geom_point(position = position_dodge(0.3), size = 3, shape=15, color="#FF0000") +
+    geom_text(
+      aes_string(label = "p_label"),
+      position = position_dodge(0.9),
+      vjust = 0.5 * -1.5,
+      hjust = -0.2,
+      show.legend = FALSE,
+      size = 4,
+      family = my_font
+    ) +
+  scale_fill_manual(values = alpha(use_color, 0.5)) +
+  facet_wrap(~labels2, scales = fw_scales) +
+  labs(y = "Estimates(95% Robust CI)",x="", caption = caption) +
+    ggthemes::theme_base() +
+    theme(
+      legend.position = "none",
+      text = element_text(family = my_font, size = 14),
+      strip.background = element_rect(),
+      panel.border = element_rect(size = 0, fill = NA),
+      axis.text.x = ggtext::element_markdown(),
+      strip.text = element_text(
+        family = my_font,
+        size = 14,
+        color = "#4D4D4D"
+      ))
+
+ if (is_dfe) {
+    file_name <- paste0(here::here("figures","table_dfe_"), tbl_Num, ".png")
+  } else {
+    file_name <- paste0(here::here("figures","table_"), tbl_Num, ".png")
+  }
+  
+  ggsave(filename = file_name, plt_tbl_1, width = 30, height = 24, units = "cm")
+   return(plt_tbl_1)
+}
+
+```
+```{r}
+df_1 <- coeff_tbl%>%
+  filter(is_dfe == 0)%>%
+  mutate(labels2 = case_when(
+    LABELS=="Extension_access and training" ~ "(B) Extension access and training",
+    LABELS=="Training" ~ "(A) Training",
+    LABELS=="Extension access"  ~ "(A) Extension access",
+    LABELS=="Private extension"  ~ "(B) Private extension",
+    LABELS=="Public extension"  ~ "(C) Public extension",
+    LABELS=="Public-private extension"  ~ "(D) Joint Public-private extension"
+  ))
+
+df_2 <- coeff_tbl%>%
+  filter(is_dfe == 1)%>%
+  mutate(labels2 = case_when(
+    LABELS=="Extension_access and training" ~ "(B) Extension access and training",
+    LABELS=="Training" ~ "(A) Training",
+    LABELS=="Extension access"  ~ "(A) Extension access",
+    LABELS=="Private extension"  ~ "(B) Private extension",
+    LABELS=="Public extension"  ~ "(C) Public extension",
+    LABELS=="Public-private extension"  ~ "(D) Joint Public-private extension"
+  ))
+```
+
+
+```{r}
+my_caption <- "Source: Author’s visualization\nNotes:Full results with all controls are in the supplementary material\n*** p<0.01, ** p<0.05, * p<0.1"
+plot_coefficents(df_2, tbl_Num = 1, use_color = palette_1, caption = my_caption) 
+plot_coefficents(df_1, tbl_Num = 1, is_dfe = F, use_color = palette_1, caption = my_caption)
+```
+```{r}
+plot_coefficents(df_2, tbl_Num = 2, use_color = palette_1, caption = my_caption)
+plot_coefficents(df_1, tbl_Num = 2, is_dfe = F, use_color = palette_1, caption = my_caption)
+```
+
+
+
+```{r}
+plot_coefficents_bar(df_2, tbl_Num = 1, use_color = palette_grey,caption = my_caption)
+plot_coefficents_bar(df_1, tbl_Num = 1, is_dfe = F, use_color = palette_grey, caption = my_caption)
+```
+
+```{r}
+plot_coefficents_bar(df_2, tbl_Num = 2, use_color = palette_grey, caption = my_caption)
+plot_coefficents_bar(df_1, tbl_Num = 2, is_dfe = F, use_color = palette_grey, caption = my_caption)
+```
+
+

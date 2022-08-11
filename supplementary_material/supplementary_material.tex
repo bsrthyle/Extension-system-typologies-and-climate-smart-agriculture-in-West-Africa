@@ -1,0 +1,644 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{lm}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Extension typologies and sustainable intensification: Evidence from West Africa},
+  colorlinks=true,
+  linkcolor=Maroon,
+  filecolor=Maroon,
+  citecolor=Blue,
+  urlcolor=Blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage[margin=2.8cm]{geometry}
+\renewcommand{\contentsname}{Table of Contents}
+\usepackage{enumitem}
+\usepackage{pifont}
+\renewcommand{\labelitemi}{$\rightarrow$}
+\usepackage{tocloft}
+\renewcommand\cftsecleader{\cftdotfill{\cftdotsep}}
+\usepackage{hyperref}
+\hypersetup{linkcolor = blue}
+\usepackage{hanging}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs,threeparttablex}
+\usepackage{pdflscape}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+\usepackage{lmodern}
+\usepackage{nimbusmono}
+\renewcommand{\thetable}{SM\arabic{table}}
+\setlength{\cfttabnumwidth}{1cm}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Extension typologies and sustainable intensification: Evidence from West Africa}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Supplementary Material (Full model tables and robustness check)}
+\date{Last updated: 2022-08-11 18:25:13}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\newpage
+\listoftables
+\newpage
+
+\newpage
+
+\begingroup\fontsize{7}{9}\selectfont
+
+\begin{landscape}
+\begin{longtable}[t]{lrrrlrrrl}
+\caption{\label{tab:unnamed-chunk-2}Extension access and SI practices}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-2}Extension access and SI practices \textit{(continued)}}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Extension access (dummy, Yes=1) & \textbf{0.130***} & \textbf{0.092***} & \textbf{0.069***} & \textbf{0.115***} & \textbf{0.126***} & \textbf{0.126***} & 0.017 & \textbf{-0.029**}\\
+ & (0.016) & (0.015) & (0.013) & (0.013) & (0.013) & (0.014) & (0.012) & (0.013)\\
+Age of household head (years) & \textbf{0.021***} & \textbf{0.018***} & 0.003 & 0.004 & 0.005 & 0.006 & 0.002 & 0.001\\
+ & (0.006) & (0.006) & (0.006) & (0.006) & (0.006) & (0.006) & (0.004) & (0.004)\\
+Sex of household head (dummy, male=1) & -0.026 & -0.021 & 0.039 & \textbf{-0.109***} & \textbf{0.055**} & \textbf{0.110***} & -0.001 & \textbf{0.249***}\\
+\addlinespace
+ & (0.030) & (0.030) & (0.024) & (0.030) & (0.022) & (0.029) & (0.021) & (0.027)\\
+Education level (Number of years) & -0.003 & 0.002 & -0.001 & \textbf{-0.013***} & \textbf{0.003*} & \textbf{0.011***} & -0.001 & \textbf{0.016***}\\
+ & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.001) & (0.002)\\
+Household size (number of persons) & \textbf{0.007***} & \textbf{0.007***} & \textbf{0.002*} & \textbf{0.002*} & -0.002 & \textbf{-0.002*} & \textbf{-0.006***} & \textbf{-0.005***}\\
+ & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+\addlinespace
+Distance to the nearest urban market (km) & -0.000 & \textbf{-0.001*} & \textbf{0.002***} & \textbf{0.001***} & \textbf{-0.002***} & \textbf{-0.003***} & \textbf{0.001***} & \textbf{0.001***}\\
+ & (0.001) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Distance the nearest village market (km) & \textbf{-0.007***} & \textbf{-0.008***} & \textbf{-0.007***} & \textbf{-0.004***} & \textbf{0.004***} & 0.000 & \textbf{-0.004***} & \textbf{-0.007***}\\
+ & (0.002) & (0.002) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+Cooperative membership (dummy) & -0.004 & -0.004 & \textbf{0.031**} & \textbf{0.049***} & 0.012 & \textbf{0.063***} & \textbf{0.030***} & \textbf{0.023*}\\
+\addlinespace
+ & (0.017) & (0.017) & (0.014) & (0.015) & (0.013) & (0.014) & (0.011) & (0.012)\\
+Labor cost (USD/ha) & -0.000 & \textbf{0.000**} & 0.000 & -0.000 & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Groundnut area (ha) & \textbf{0.019***} & \textbf{0.023***} & \textbf{0.040***} & \textbf{0.038***} & \textbf{0.017***} & \textbf{0.017***} & \textbf{0.048***} & \textbf{0.050***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.005) & (0.005) & (0.005) & (0.005)\\
+\addlinespace
+Off-farm income (dummy) & 0.001 & -0.005 & 0.009 & 0.012 & \textbf{0.051*} & 0.045 & \textbf{-0.070***} & \textbf{-0.073***}\\
+ & (0.032) & (0.032) & (0.026) & (0.026) & (0.031) & (0.031) & (0.023) & (0.023)\\
+Dependency ratio & \textbf{0.018***} & \textbf{0.019***} & -0.001 & -0.001 & -0.003 & -0.003 & \textbf{0.018***} & \textbf{0.019***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.006) & (0.006) & (0.005) & (0.005)\\
+Clay soil (dummy) & 0.014 & 0.009 & \textbf{0.034*} & \textbf{0.052***} & -0.000 & -0.003 & 0.012 & -0.004\\
+\addlinespace
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.017) & (0.019) & (0.015) & \vphantom{1} (0.017)\\
+Sandy-clay soil (dummy) & 0.017 & 0.020 & \textbf{0.024*} & \textbf{0.035**} & -0.004 & -0.010 & \textbf{0.025**} & 0.022\\
+ & (0.017) & (0.018) & (0.014) & (0.016) & (0.014) & (0.015) & (0.012) & (0.014)\\
+Silty soil (dummy) & 0.009 & 0.013 & \textbf{0.035**} & \textbf{0.051***} & -0.004 & -0.008 & 0.010 & -0.000\\
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.017) & (0.019) & (0.015) & (0.017)\\
+\addlinespace
+Constant & \textbf{0.360***} & \textbf{0.266***} & -0.018 & \textbf{0.342***} & \textbf{0.454***} & 0.039 & \textbf{0.875***} & \textbf{0.100**}\\
+ & (0.068) & (0.049) & (0.047) & (0.047) & (0.049) & (0.045) & (0.038) & (0.045)\\
+\midrule
+Observations & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604\\
+Number of id & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868\\
+Additional controls & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\addlinespace
+District FE & Yes & No & Yes & No & Yes & No & Yes & No\\
+Year FE & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\midrule
+Robust standard errors in parentheses &  &  &  &  &  &  &  & \\
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  &  &  &  &  & \\*
+\end{longtable}
+\end{landscape}
+\endgroup{}
+
+\newpage
+
+\begingroup\fontsize{6}{8}\selectfont
+
+\begin{landscape}
+\begin{longtable}[t]{lrrrlrrrl}
+\caption{\label{tab:unnamed-chunk-3}Extension system and SI practices}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-3}Extension system and SI practices \textit{(continued)}}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Private extension (dummy) & 0.009 & -0.018 & \textbf{0.055***} & \textbf{0.059***} & \textbf{0.164***} & \textbf{0.138***} & \textbf{0.021*} & \textbf{0.028**}\\
+ & (0.017) & (0.016) & (0.014) & (0.015) & (0.012) & (0.013) & (0.011) & (0.013)\\
+Public extension (dummy) & \textbf{0.108***} & \textbf{0.098***} & \textbf{0.046***} & \textbf{0.097***} & \textbf{0.045***} & \textbf{0.079***} & \textbf{0.024**} & \textbf{-0.022*}\\
+ & (0.019) & (0.017) & (0.015) & (0.015) & (0.015) & (0.014) & (0.012) & (0.013)\\
+Age of household head (years) & \textbf{0.021***} & \textbf{0.018***} & 0.000 & -0.000 & -0.001 & -0.000 & 0.000 & -0.000\\
+\addlinespace
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.006) & (0.006) & (0.004) & (0.004)\\
+Sex of household head (dummy, male=1) & -0.034 & -0.023 & 0.038 & \textbf{-0.107***} & \textbf{0.059***} & \textbf{0.113***} & -0.002 & \textbf{0.252***}\\
+ & (0.029) & (0.030) & (0.024) & (0.030) & (0.022) & (0.029) & (0.021) & (0.027)\\
+Education level (Number of years) & -0.003 & 0.002 & -0.001 & \textbf{-0.013***} & \textbf{0.003*} & \textbf{0.011***} & -0.001 & \textbf{0.016***}\\
+ & (0.002) & (0.002) & (0.002) & (0.002) & (0.001) & (0.002) & (0.001) & (0.002)\\
+\addlinespace
+Household size (number of persons) & \textbf{0.007***} & \textbf{0.008***} & \textbf{0.002*} & 0.002 & \textbf{-0.002**} & \textbf{-0.003**} & \textbf{-0.006***} & \textbf{-0.006***}\\
+ & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+Distance to the nearest urban market (km) & -0.000 & \textbf{-0.001**} & \textbf{0.002***} & \textbf{0.002***} & \textbf{-0.002***} & \textbf{-0.002***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.001) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Distance the nearest village market (km) & \textbf{-0.007***} & \textbf{-0.008***} & \textbf{-0.007***} & \textbf{-0.004***} & \textbf{0.003***} & -0.001 & \textbf{-0.004***} & \textbf{-0.007***}\\
+\addlinespace
+ & (0.002) & (0.002) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+Cooperative membership (dummy) & -0.004 & -0.008 & \textbf{0.030**} & \textbf{0.043***} & 0.011 & \textbf{0.058***} & \textbf{0.027***} & \textbf{0.022*}\\
+ & (0.017) & (0.017) & (0.014) & (0.015) & (0.013) & (0.014) & (0.010) & (0.012)\\
+Labor cost (USD/ha) & -0.000 & \textbf{0.000*} & 0.000 & \textbf{-0.000*} & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+\addlinespace
+Groundnut area (ha) & \textbf{0.019***} & \textbf{0.022***} & \textbf{0.039***} & \textbf{0.036***} & \textbf{0.015***} & \textbf{0.015***} & \textbf{0.047***} & \textbf{0.049***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.005) & (0.005) & (0.005) & (0.005)\\
+Off-farm income (dummy) & -0.003 & -0.009 & 0.012 & 0.016 & \textbf{0.059*} & \textbf{0.055*} & \textbf{-0.067***} & \textbf{-0.068***}\\
+ & (0.032) & (0.032) & (0.026) & (0.025) & (0.031) & (0.031) & (0.023) & (0.023)\\
+Dependency ratio & \textbf{0.018***} & \textbf{0.018***} & -0.001 & -0.002 & -0.003 & -0.004 & \textbf{0.018***} & \textbf{0.018***}\\
+\addlinespace
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.006) & (0.006) & (0.005) & (0.005)\\
+Clay soil (dummy) & 0.013 & 0.007 & \textbf{0.032*} & \textbf{0.048**} & -0.003 & -0.008 & 0.012 & -0.004\\
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.016) & (0.019) & (0.015) & (0.017)\\
+Sandy-clay soil (dummy) & 0.017 & 0.020 & \textbf{0.024*} & \textbf{0.034**} & -0.004 & -0.010 & \textbf{0.025**} & 0.023\\
+ & (0.017) & (0.018) & (0.014) & (0.016) & (0.013) & (0.015) & (0.012) & (0.014)\\
+\addlinespace
+Silty soil (dummy) & 0.010 & 0.012 & \textbf{0.036**} & \textbf{0.052***} & -0.001 & -0.006 & 0.010 & 0.001\\
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.017) & (0.018) & (0.015) & (0.017)\\
+Constant & \textbf{0.379***} & \textbf{0.283***} & -0.033 & \textbf{0.333***} & \textbf{0.412***} & 0.006 & \textbf{0.858***} & \textbf{0.077*}\\
+ & (0.068) & (0.048) & (0.048) & (0.047) & (0.048) & (0.044) & (0.037) & (0.044)\\
+\midrule
+Observations & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604\\
+\addlinespace
+Number of id & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868\\
+Additional controls & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+District FE & Yes & No & Yes & No & Yes & No & Yes & No\\
+Year FE & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\midrule
+Robust standard errors in parentheses &  &  &  &  &  &  &  & \\
+\addlinespace
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  &  &  &  &  & \\*
+\end{longtable}
+\end{landscape}
+\endgroup{}
+
+\newpage
+
+\begingroup\fontsize{7}{9}\selectfont
+
+\begin{landscape}
+\begin{longtable}[t]{lrrrlrrrl}
+\caption{\label{tab:unnamed-chunk-4}Joint public-private extension and SI practices}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-4}Joint public-private extension and SI practices \textit{(continued)}}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Public-private extension (dummy) & \textbf{0.041**} & \textbf{0.029*} & \textbf{0.084***} & \textbf{0.123***} & \textbf{0.198***} & \textbf{0.209***} & \textbf{0.049***} & \textbf{0.037***}\\
+ & (0.016) & (0.015) & (0.014) & (0.014) & (0.013) & (0.013) & (0.010) & (0.011)\\
+Age of household head (years) & \textbf{0.025***} & \textbf{0.021***} & 0.001 & 0.001 & -0.002 & -0.002 & -0.000 & -0.003\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.006) & (0.006) & (0.004) & (0.004)\\
+Sex of household head (dummy, male=1) & -0.028 & -0.029 & 0.036 & \textbf{-0.113***} & \textbf{0.048**} & \textbf{0.109***} & -0.002 & \textbf{0.254***}\\
+\addlinespace
+ & (0.029) & (0.030) & (0.024) & (0.030) & (0.022) & (0.029) & (0.021) & (0.027)\\
+Education level (Number of years) & -0.002 & 0.002 & -0.000 & \textbf{-0.013***} & \textbf{0.003**} & \textbf{0.011***} & -0.000 & \textbf{0.016***}\\
+ & (0.002) & (0.002) & (0.002) & (0.002) & (0.001) & (0.002) & (0.001) & (0.002)\\
+Household size (number of persons) & \textbf{0.008***} & \textbf{0.008***} & \textbf{0.002*} & \textbf{0.002*} & \textbf{-0.002*} & \textbf{-0.002**} & \textbf{-0.006***} & \textbf{-0.006***}\\
+ & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+\addlinespace
+Distance to the nearest urban market (km) & -0.000 & \textbf{-0.001**} & \textbf{0.002***} & \textbf{0.002***} & \textbf{-0.002***} & \textbf{-0.002***} & \textbf{0.002***} & \textbf{0.002***}\\
+ & (0.001) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Distance the nearest village market (km) & \textbf{-0.007***} & \textbf{-0.008***} & \textbf{-0.007***} & \textbf{-0.005***} & \textbf{0.003***} & -0.001 & \textbf{-0.004***} & \textbf{-0.007***}\\
+ & (0.002) & (0.002) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+Cooperative membership (dummy) & 0.009 & 0.008 & \textbf{0.034**} & \textbf{0.053***} & 0.012 & \textbf{0.061***} & \textbf{0.028***} & 0.015\\
+\addlinespace
+ & (0.017) & (0.016) & (0.014) & (0.014) & (0.013) & (0.013) & (0.011) & (0.012)\\
+Labor cost (USD/ha) & -0.000 & \textbf{0.000*} & 0.000 & \textbf{-0.000*} & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Groundnut area (ha) & \textbf{0.021***} & \textbf{0.024***} & \textbf{0.039***} & \textbf{0.037***} & \textbf{0.015***} & \textbf{0.015***} & \textbf{0.047***} & \textbf{0.048***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.005) & (0.005) & (0.005) & (0.005)\\
+\addlinespace
+Off-farm income (dummy) & -0.015 & -0.018 & 0.008 & 0.008 & \textbf{0.054*} & 0.049 & \textbf{-0.067***} & \textbf{-0.064***}\\
+ & (0.032) & (0.032) & (0.026) & (0.025) & (0.031) & (0.031) & (0.022) & (0.022)\\
+Dependency ratio & \textbf{0.021***} & \textbf{0.021***} & -0.001 & -0.000 & -0.003 & -0.003 & \textbf{0.018***} & \textbf{0.017***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.006) & (0.006) & (0.005) & (0.005)\\
+Clay soil (dummy) & 0.013 & 0.008 & \textbf{0.031*} & \textbf{0.046**} & -0.005 & -0.011 & 0.011 & -0.005\\
+\addlinespace
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.016) & (0.018) & (0.015) & (0.017)\\
+Sandy-clay soil (dummy) & 0.016 & 0.020 & \textbf{0.024*} & \textbf{0.034**} & -0.003 & -0.011 & \textbf{0.025**} & 0.023\\
+ & (0.017) & (0.018) & (0.014) & (0.016) & (0.013) & (0.015) & (0.012) & (0.014)\\
+Silty soil (dummy) & 0.011 & 0.014 & \textbf{0.037**} & \textbf{0.053***} & 0.000 & -0.005 & 0.011 & 0.000\\
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.017) & (0.018) & (0.015) & (0.017)\\
+\addlinespace
+Constant & \textbf{0.437***} & \textbf{0.323***} & -0.014 & \textbf{0.375***} & \textbf{0.433***} & 0.042 & \textbf{0.860***} & 0.062\\
+ & (0.068) & (0.048) & (0.048) & (0.047) & (0.047) & (0.043) & (0.036) & (0.044)\\
+\midrule
+Observations & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604\\
+Number of id & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868\\
+Additional controls & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\addlinespace
+District FE & Yes & No & Yes & No & Yes & No & Yes & No\\
+Year FE & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\midrule
+Robust standard errors in parentheses &  &  &  &  &  &  &  & \\
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  &  &  &  &  & \\*
+\end{longtable}
+\end{landscape}
+\endgroup{}
+\newpage
+
+\begin{landscape}\begingroup\fontsize{7}{9}\selectfont
+
+\begin{longtable}[t]{lrrrlrrrl}
+\caption{\label{tab:unnamed-chunk-5}Training and SI practices}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-5}Training and SI practices \textit{(continued)}}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Training (dummy) & \textbf{0.055***} & 0.017 & \textbf{0.026*} & \textbf{0.057***} & \textbf{0.100***} & \textbf{0.132***} & 0.013 & \textbf{-0.031***}\\
+ & (0.017) & (0.015) & (0.014) & (0.014) & (0.014) & (0.013) & (0.011) & (0.012)\\
+Age of household head (years) & \textbf{0.027***} & \textbf{0.023***} & 0.006 & 0.009 & \textbf{0.010*} & \textbf{0.011*} & 0.003 & 0.000\\
+ & (0.006) & (0.006) & (0.005) & (0.005) & (0.006) & (0.006) & (0.004) & (0.004)\\
+Sex of household head (dummy, male=1) & -0.026 & -0.028 & 0.039 & \textbf{-0.112***} & \textbf{0.056**} & \textbf{0.114***} & -0.001 & \textbf{0.248***}\\
+\addlinespace
+ & (0.029) & (0.030) & (0.024) & (0.030) & (0.022) & (0.029) & (0.021) & (0.027)\\
+Education level (Number of years) & -0.002 & 0.002 & -0.000 & \textbf{-0.013***} & \textbf{0.003**} & \textbf{0.012***} & -0.000 & \textbf{0.016***}\\
+ & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.001) & (0.002)\\
+Household size (number of persons) & \textbf{0.008***} & \textbf{0.008***} & \textbf{0.003**} & \textbf{0.003**} & -0.001 & -0.001 & \textbf{-0.005***} & \textbf{-0.006***}\\
+ & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+\addlinespace
+Distance to the nearest urban market (km) & -0.000 & \textbf{-0.001**} & \textbf{0.002***} & \textbf{0.001***} & \textbf{-0.002***} & \textbf{-0.003***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.001) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Distance the nearest village market (km) & \textbf{-0.006***} & \textbf{-0.008***} & \textbf{-0.007***} & \textbf{-0.003**} & \textbf{0.005***} & 0.001 & \textbf{-0.003***} & \textbf{-0.007***}\\
+ & (0.002) & (0.002) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+Cooperative membership (dummy) & 0.003 & 0.008 & \textbf{0.035**} & \textbf{0.056***} & 0.010 & \textbf{0.056***} & \textbf{0.029***} & \textbf{0.025**}\\
+\addlinespace
+ & (0.017) & (0.017) & (0.014) & (0.015) & (0.013) & (0.014) & (0.011) & (0.012)\\
+Labor cost (USD/ha) & -0.000 & \textbf{0.000**} & 0.000 & -0.000 & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Groundnut area (ha) & \textbf{0.022***} & \textbf{0.025***} & \textbf{0.042***} & \textbf{0.041***} & \textbf{0.020***} & \textbf{0.021***} & \textbf{0.048***} & \textbf{0.049***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.005) & (0.005) & (0.005) & (0.005)\\
+\addlinespace
+Off-farm income (dummy) & -0.021 & -0.021 & -0.003 & -0.008 & 0.029 & 0.022 & \textbf{-0.073***} & \textbf{-0.068***}\\
+ & (0.033) & (0.033) & (0.026) & (0.026) & (0.030) & (0.030) & (0.023) & (0.022)\\
+Dependency ratio & \textbf{0.021***} & \textbf{0.021***} & 0.001 & 0.001 & -0.001 & -0.001 & \textbf{0.019***} & \textbf{0.018***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.007) & (0.007) & (0.005) & (0.005)\\
+Clay soil (dummy) & 0.014 & 0.009 & \textbf{0.034*} & \textbf{0.051***} & -0.000 & -0.004 & 0.012 & -0.004\\
+\addlinespace
+ & (0.022) & (0.022) & (0.017) & (0.020) & (0.017) & (0.019) & (0.015) & (0.017)\\
+Sandy-clay soil (dummy) & 0.016 & 0.020 & \textbf{0.024*} & \textbf{0.033**} & -0.004 & -0.012 & \textbf{0.025**} & 0.023\\
+ & (0.017) & (0.018) & (0.014) & (0.016) & (0.014) & (0.015) & (0.012) & (0.014)\\
+Silty soil (dummy) & 0.009 & 0.013 & \textbf{0.035**} & \textbf{0.050**} & -0.004 & -0.012 & 0.010 & 0.001\\
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.017) & (0.019) & (0.015) & (0.017)\\
+\addlinespace
+Constant & \textbf{0.426***} & \textbf{0.327***} & 0.018 & \textbf{0.397***} & \textbf{0.487***} & 0.063 & \textbf{0.880***} & \textbf{0.095**}\\
+ & (0.068) & (0.047) & (0.048) & (0.047) & (0.049) & (0.043) & (0.037) & (0.044)\\
+\midrule
+Observations & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604\\
+Number of id & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868\\
+Additional controls & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\addlinespace
+District FE & Yes & No & Yes & No & Yes & No & Yes & No\\
+Year FE & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\midrule
+Robust standard errors in parentheses &  &  &  &  &  &  &  & \\
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  &  &  &  &  & \\*
+\end{longtable}
+\endgroup{}
+\end{landscape}
+
+\newpage
+
+\begingroup\fontsize{7}{9}\selectfont
+
+\begin{landscape}
+\begin{longtable}[t]{lrrrlrrrl}
+\caption{\label{tab:unnamed-chunk-6}Extension access and training and SI practices}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-6}Extension access and training and SI practices \textit{(continued)}}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+1.extension\_access\#1.training & \textbf{0.144***} & \textbf{0.083***} & \textbf{0.073***} & \textbf{0.128***} & \textbf{0.172***} & \textbf{0.187***} & \textbf{0.024*} & \textbf{-0.045***}\\
+ & (0.020) & (0.018) & (0.017) & (0.017) & (0.017) & (0.016) & (0.014) & (0.015)\\
+Age of household head (years) & \textbf{0.020***} & \textbf{0.017***} & 0.003 & 0.003 & 0.006 & 0.007 & 0.002 & 0.001\\
+ & (0.006) & (0.006) & (0.006) & (0.006) & (0.006) & (0.006) & (0.004) & (0.004)\\
+Sex of household head (dummy, male=1) & -0.027 & -0.023 & 0.039 & \textbf{-0.107***} & \textbf{0.057**} & \textbf{0.119***} & -0.001 & \textbf{0.247***}\\
+\addlinespace
+ & (0.029) & (0.030) & (0.024) & (0.030) & (0.022) & (0.029) & (0.021) & (0.027)\\
+Education level (Number of years) & \textbf{-0.003*} & 0.002 & -0.001 & \textbf{-0.013***} & \textbf{0.003*} & \textbf{0.011***} & -0.001 & \textbf{0.016***}\\
+ & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.001) & (0.002)\\
+Household size (number of persons) & \textbf{0.007***} & \textbf{0.007***} & \textbf{0.002*} & \textbf{0.002*} & -0.001 & -0.001 & \textbf{-0.006***} & \textbf{-0.005***}\\
+ & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+\addlinespace
+Distance to the nearest urban market (km) & -0.000 & \textbf{-0.001*} & \textbf{0.002***} & \textbf{0.001***} & \textbf{-0.002***} & \textbf{-0.003***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.001) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Distance the nearest village market (km) & \textbf{-0.007***} & \textbf{-0.008***} & \textbf{-0.007***} & \textbf{-0.004***} & \textbf{0.004***} & 0.001 & \textbf{-0.003***} & \textbf{-0.007***}\\
+ & (0.002) & (0.002) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+Cooperative membership (dummy) & -0.004 & -0.000 & \textbf{0.031**} & \textbf{0.047***} & 0.002 & \textbf{0.047***} & \textbf{0.029***} & \textbf{0.026**}\\
+\addlinespace
+ & (0.017) & (0.017) & (0.014) & (0.015) & (0.013) & (0.014) & (0.011) & (0.012)\\
+Labor cost (USD/ha) & -0.000 & \textbf{0.000**} & 0.000 & -0.000 & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Groundnut area (ha) & \textbf{0.019***} & \textbf{0.022***} & \textbf{0.040***} & \textbf{0.038***} & \textbf{0.018***} & \textbf{0.019***} & \textbf{0.048***} & \textbf{0.050***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.005) & (0.005) & (0.005) & (0.005)\\
+\addlinespace
+Off-farm income (dummy) & 0.002 & -0.003 & 0.009 & 0.012 & 0.045 & 0.037 & \textbf{-0.071***} & \textbf{-0.072***}\\
+ & (0.032) & (0.032) & (0.026) & (0.026) & (0.031) & (0.030) & (0.023) & (0.023)\\
+Dependency ratio & \textbf{0.018***} & \textbf{0.019***} & -0.001 & -0.001 & -0.003 & -0.003 & \textbf{0.018***} & \textbf{0.019***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.007) & (0.007) & (0.005) & (0.005)\\
+Clay soil (dummy) & 0.014 & 0.009 & \textbf{0.034*} & \textbf{0.052***} & -0.000 & -0.004 & 0.012 & -0.004\\
+\addlinespace
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.017) & (0.019) & (0.015) & \vphantom{1} (0.017)\\
+Sandy-clay soil (dummy) & 0.017 & 0.020 & \textbf{0.024*} & \textbf{0.034**} & -0.004 & -0.011 & \textbf{0.025**} & 0.023\\
+ & (0.017) & (0.018) & (0.014) & (0.016) & (0.014) & (0.015) & (0.012) & (0.014)\\
+Silty soil (dummy) & 0.009 & 0.014 & \textbf{0.035**} & \textbf{0.051***} & -0.006 & -0.012 & 0.010 & 0.000\\
+ & (0.021) & (0.022) & (0.017) & (0.020) & (0.017) & (0.019) & (0.015) & (0.017)\\
+\addlinespace
+Constant & \textbf{0.346***} & \textbf{0.262***} & -0.021 & \textbf{0.331***} & \textbf{0.430***} & 0.022 & \textbf{0.870***} & \textbf{0.108**}\\
+ & (0.068) & (0.049) & (0.048) & (0.048) & (0.049) & (0.044) & (0.038) & (0.045)\\
+\midrule
+Observations & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604\\
+Number of id & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868\\
+Additional controls & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\addlinespace
+District FE & Yes & No & Yes & No & Yes & No & Yes & No\\
+Year FE & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\midrule
+Robust standard errors in parentheses &  &  &  &  &  &  &  & \\
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  &  &  &  &  & \\*
+\end{longtable}
+\end{landscape}
+\endgroup{}
+\newpage
+
+\begingroup\fontsize{7}{9}\selectfont
+
+\begin{landscape}
+\begin{longtable}[t]{lrrrlrrrl}
+\caption{\label{tab:unnamed-chunk-7}Extension impacts on practices (Household FE Estimator)}\\
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{2}{c}{(1)} & \multicolumn{2}{c}{(2)} & \multicolumn{2}{c}{(3)} & \multicolumn{2}{c}{(4)} \\
+\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-7}Extension impacts on practices (Household FE Estimator) \textit{(continued)}}\\
+\toprule
+variables & Intercropping & Intercropping & Crop rotation & Crop rotation & Improved seeds & Improved seeds & Organic fertilisers & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Extension access (dummy, Yes=1) & \textbf{0.166***} & \textbf{0.165***} & \textbf{0.079***} & \textbf{0.081***} & \textbf{0.119***} & \textbf{0.119***} & 0.008 & 0.009\\
+ & (0.019) & (0.019) & (0.016) & (0.016) & (0.017) & (0.017) & (0.015) & (0.015)\\
+Age of household head (years) & \textbf{0.020***} & \textbf{0.022***} & 0.005 & 0.004 & 0.007 & 0.007 & 0.004 & 0.004\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.006) & (0.006) & (0.005) & (0.004)\\
+Household size (number of persons) & \textbf{0.007***} & \textbf{0.007***} & \textbf{0.002*} & \textbf{0.002*} & -0.002 & -0.002 & \textbf{-0.006***} & \textbf{-0.006***}\\
+\addlinespace
+ & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001)\\
+Distance to the nearest urban market (km) & \textbf{-0.001*} & \textbf{-0.001*} & \textbf{0.002***} & \textbf{0.002***} & \textbf{-0.002***} & \textbf{-0.002***} & \textbf{0.002***} & \textbf{0.002***}\\
+ & (0.001) & (0.001) & (0.000) & (0.000) & (0.001) & (0.001) & (0.001) & (0.001)\\
+Distance the nearest village market (km) & \textbf{-0.005**} & \textbf{-0.005**} & \textbf{-0.012***} & \textbf{-0.011***} & \textbf{0.007***} & \textbf{0.006***} & \textbf{-0.003*} & \textbf{-0.003*}\\
+ & (0.002) & (0.002) & (0.002) & (0.002) & (0.001) & (0.001) & (0.001) & (0.001)\\
+\addlinespace
+Cooperative membership (dummy) & 0.033 & 0.029 & \textbf{0.046**} & \textbf{0.048***} & \textbf{0.038**} & \textbf{0.036**} & \textbf{0.035**} & \textbf{0.033**}\\
+ & (0.023) & (0.023) & (0.018) & (0.018) & (0.018) & (0.018) & (0.014) & (0.014)\\
+Labor cost (USD/ha) & \textbf{-0.000*} & \textbf{-0.000*} & 0.000 & 0.000 & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.001***} & \textbf{0.001***}\\
+ & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000)\\
+Groundnut area (ha) & \textbf{0.018***} & \textbf{0.018***} & \textbf{0.039***} & \textbf{0.040***} & \textbf{0.016***} & \textbf{0.016***} & \textbf{0.047***} & \textbf{0.047***}\\
+\addlinespace
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.005) & (0.005) & (0.005) & (0.005)\\
+Off-farm income (dummy) & -0.003 & -0.003 & 0.004 & 0.011 & 0.045 & 0.045 & \textbf{-0.065***} & \textbf{-0.070***}\\
+ & (0.032) & (0.031) & (0.026) & (0.026) & (0.031) & (0.030) & (0.023) & (0.023)\\
+Dependency ratio & \textbf{0.018***} & \textbf{0.018***} & -0.002 & -0.001 & -0.002 & -0.002 & \textbf{0.019***} & \textbf{0.018***}\\
+ & (0.007) & (0.007) & (0.006) & (0.006) & (0.006) & (0.006) & (0.005) & (0.005)\\
+\addlinespace
+Clay soil (dummy) & 0.017 & 0.021 & 0.034 & \textbf{0.041*} & -0.007 & -0.008 & 0.012 & 0.008\\
+ & (0.028) & (0.028) & (0.024) & (0.024) & (0.023) & (0.023) & (0.020) & (0.020)\\
+Sandy-clay soil (dummy) & 0.023 & 0.026 & 0.023 & 0.022 & -0.010 & -0.009 & \textbf{0.036**} & \textbf{0.036**}\\
+ & (0.022) & (0.022) & (0.018) & (0.018) & (0.018) & (0.018) & (0.016) & (0.016)\\
+Silty soil (dummy) & 0.026 & 0.029 & 0.027 & 0.031 & 0.002 & 0.002 & 0.013 & 0.012\\
+\addlinespace
+ & (0.027) & (0.027) & (0.024) & (0.024) & (0.023) & (0.023) & (0.020) & (0.020)\\
+Constant & \textbf{-0.810**} & \textbf{-0.877***} & -0.207 & 0.105 & -0.037 & -0.065 & 0.350 & 0.165\\
+\midrule
+ & (0.321) & (0.316) & (0.276) & (0.271) & (0.294) & (0.290) & (0.229) & (0.215)\\
+Observations & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604 & 8,604\\
+R-squared & 0.066 & 0.057 & 0.064 & 0.055 & 0.046 & 0.043 & 0.088 & 0.079\\
+\addlinespace
+Number of id & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868 & 2,868\\
+Additional controls & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+District FE & Yes & No & Yes & No & Yes & No & Yes & No\\
+Year FE & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes\\
+\midrule
+Robust standard errors in parentheses &  &  &  &  &  &  &  & \\
+\addlinespace
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  &  &  &  &  & \\*
+\end{longtable}
+\end{landscape}
+\endgroup{}
+
+\newpage
+
+\begingroup\fontsize{7}{9}\selectfont
+
+\begin{landscape}
+\begin{longtable}[t]{lrrrl}
+\caption{\label{tab:unnamed-chunk-8}Hausman Taylor estimation}\\
+\toprule
+variables & Intercropping & Crop rotation & Improved seeds & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-8}Hausman Taylor estimation \textit{(continued)}}\\
+\toprule
+variables & Intercropping & Crop rotation & Improved seeds & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Age of household head (years) & -0.001 & \textbf{0.001*} & 0.000 & \textbf{-0.001**}\\
+ & (0.001) & (0.001) & (0.001) & \vphantom{2} (0.001)\\
+Household size (number of persons) & \textbf{0.003***} & \textbf{0.009***} & \textbf{-0.005***} & \textbf{-0.010***}\\
+ & (0.001) & (0.001) & (0.001) & \vphantom{1} (0.001)\\
+Distance to the nearest urban market (km) & \textbf{-0.001**} & \textbf{0.001***} & \textbf{-0.003***} & \textbf{0.002***}\\
+\addlinespace
+ & (0.000) & (0.000) & (0.000) & \vphantom{1} (0.000)\\
+Distance the nearest village market (km) & \textbf{-0.008***} & \textbf{-0.004***} & 0.000 & \textbf{-0.007***}\\
+ & (0.001) & (0.001) & (0.001) & (0.001)\\
+Cooperative membership (dummy) & -0.007 & \textbf{0.048***} & \textbf{0.063***} & \textbf{0.023**}\\
+ & (0.012) & (0.011) & (0.011) & (0.010)\\
+\addlinespace
+Labor cost (USD/ha) & \textbf{0.000***} & \textbf{-0.000***} & \textbf{0.001***} & \textbf{0.002***}\\
+ & (0.000) & (0.000) & (0.000) & (0.000)\\
+Groundnut area (ha) & \textbf{0.029***} & \textbf{0.028***} & \textbf{0.026***} & \textbf{0.055***}\\
+ & (0.004) & (0.003) & (0.004) & (0.003)\\
+Off-farm income (dummy) & \textbf{0.070***} & \textbf{-0.058***} & \textbf{0.144***} & 0.012\\
+\addlinespace
+ & (0.018) & (0.016) & (0.017) & (0.014)\\
+Dependency ratio & \textbf{0.019***} & -0.004 & \textbf{0.008**} & \textbf{0.023***}\\
+ & (0.004) & (0.004) & (0.004) & (0.003)\\
+Clay soil (dummy) & 0.010 & \textbf{0.048***} & -0.005 & -0.002\\
+ & (0.017) & (0.015) & (0.016) & \vphantom{1} (0.013)\\
+\addlinespace
+Sandy-clay soil (dummy) & 0.018 & \textbf{0.026**} & -0.007 & \textbf{0.029***}\\
+ & (0.013) & (0.012) & (0.012) & (0.010)\\
+Silty soil (dummy) & 0.016 & \textbf{0.046***} & -0.006 & 0.003\\
+ & (0.017) & (0.015) & (0.016) & (0.013)\\
+Extension access (dummy, Yes=1) & \textbf{0.153***} & \textbf{0.097***} & \textbf{0.108***} & -0.002\\
+\addlinespace
+ & (0.013) & (0.011) & (0.012) & (0.010)\\
+Sex of household head (dummy, male=1) & -0.035 & \textbf{-0.067**} & \textbf{0.096***} & \textbf{0.216***}\\
+ & (0.034) & (0.031) & (0.029) & (0.031)\\
+Education level (Number of years) & \textbf{0.006***} & \textbf{-0.019***} & \textbf{0.015***} & \textbf{0.022***}\\
+ & (0.002) & (0.002) & (0.002) & (0.002)\\
+\addlinespace
+Constant & \textbf{0.237***} & \textbf{0.279***} & \textbf{0.125***} & \textbf{0.179***}\\
+ & (0.051) & (0.046) & (0.044) & (0.045)\\
+\midrule
+Observations & 8,604 & 8,604 & 8,604 & 8,604\\
+Number of id & 2,868 & 2,868 & 2,868 & 2,868\\
+Additional controls & Yes & Yes & Yes & Yes\\
+\addlinespace
+District FE & Yes & Yes & Yes & Yes\\
+Year FE & Yes & Yes & Yes & Yes\\
+\midrule
+Standard errors in parentheses &  &  &  & \\
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  & \\*
+\end{longtable}
+\end{landscape}
+\endgroup{}
+
+\end{document}

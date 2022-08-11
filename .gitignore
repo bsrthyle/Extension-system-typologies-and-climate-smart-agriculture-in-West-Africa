@@ -274,3 +274,7 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+.Rproj.user
+# exclude data folder
+data/
+.DS_Store

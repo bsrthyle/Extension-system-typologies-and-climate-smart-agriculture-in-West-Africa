@@ -1,0 +1,182 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+
+@font-face {
+    font-family: "Segoe";
+    src: url("segoe.woff");
+}
+
+
+
+
+body {
+text-align: justify;
+font-size :13px;
+font-family: 'Segoe';
+color: #3e3838;
+}
+
+
+#main .nav-pills > li > a {
+    background-color: #bebada4d;
+    border-radius: 0px;
+}
+
+#main .nav-pills > li.active > a, #main .nav-pills > li.active > a:hover, #main .nav-pills > li.active > a:focus {
+    color: #FFFFFF !important;
+    background-color: #8dd3c7;
+}
+#table-of-contents h2 {
+    background-color: #8dd3c7;
+    border-bottom: solid 10px #bebada;
+    color: black;
+    font-family: 'Segoe';
+  
+    
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Segoe','Noto Sans',"Segoe UI","Cuprum",Tahoma,"Helvetica Neue",Helvetica,Arial;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #3a87ad;
+    font-size: 28px;
+}
+   
+   
+#main :not(.leaflet-control) > a {
+    background-image: linear-gradient(
+180deg
+,#8dd3c7,#d64a70);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 0 2em;
+    color: #8dd3c7;
+    font-weight: 300;
+    padding: .125em 1px 0 1px;
+    transition: background-position .15s, color .15s;
+    
+}
+h1, h2, h3 {
+    font-family: 'Segoe','Noto Sans',"Segoe UI","Cuprum",Tahoma,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #2f5d84;
+    background-color: #edf0f2;
+    padding: 10px;
+    text-align:left;
+}
+
+
+#table-of-contents ul.nav li.active a {
+    font-weight: bold;
+    background-color: #8dd3c7;
+    
+}
+table.dataTable {
+  border-collapse: collapse;
+}
+table.dataTable thead th, table.dataTable thead td {
+    padding: 10px 18px;
+    border-bottom: 0px solid #111;
+}
+h1.title {
+    font-size: 30px;
+    text-align: center;
+    color: #2f5d84;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+caption {
+    
+    color: #1528b9;
+    
+}
+hr
+{
+    height: 2px;
+   
+}
+#sidebar {
+    background: aliceblue;
+}
+
+#sidebar h2 {
+    background-color: #8dd3c7;
+    border-bottom: solid 10px #bebada;
+    color: black;
+    font-size: large;
+}
+
+#sidebar h2 a {
+    color: #282c34;
+    
+}
+#table-of-contents a {
+  color:#111;
+  font-family: 'Segoe';
+}
+
+#table-of-contents{
+  background:#edf0f2;
+  font-family: 'Segoe';
+}
+
+a{
+  color:#291ecc;
+  text-align: left;
+}
+
+a:visited{
+  color:#291ecc;
+}
+#postamble{
+  text-align:left;
+  border-top: solid 10px #bebada;
+  background: #8dd3c7;
+  font-size: 80%;
+  font-family: 'Segoe';
+  color: #282c34;
+}
+
+#postamble .date {
+    color: #282c34;
+}
+
+#sidebar {
+    background: aliceblue;
+}
+
+
+#content pre code {
+  font-family: 'Ubuntu Mono','Anonymous Pro',Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+
+#main .nav-tabs li.active a {
+    color: #333;
+    border-bottom: 1px solid #fcfcfc;
+    background-color: #387bf38c;
+    font-family: 'Segoe';
+}
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 0 0 0 0;
+    font-family: 'Segoe';
+}
+
+table {
+  font-size: 16px;
+}
+
+#table-of-contents ul.nav li.active ul li a {
+  font-family: 'Segoe';
+}
+
+#table-of-contents ul.nav li.active ul li.active ul li a {
+    font-family: 'Segoe';
+}
