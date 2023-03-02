@@ -1,5 +1,5 @@
-# Extension-typologies-and-sustainable-intensification
-The repository contains the code and supplementary material for the paper titled "Extension typologies and sustainable intensification:  Evidence from West Africa"
+# Extension system typologies and climate smart agriculture in West Africa
+The repository contains the code and supplementary material for the paper titled "Different extension system typologies promote climate-smart agriculture in West Africa"
 
 ---
 - The data is available on request
@@ -8,4 +8,4 @@ The repository contains the code and supplementary material for the paper titled
 
 - The coefficient plots are made using R, the script(R-markdown file) is available in "r_scripts" directory
 
-- The supplementary material for the paper are stored in "supplementary_material_folder" along an r-markdown and latex files
+- The supplementary material for the paper are stored in "supplementary_material_folder" along an r-markdown and tex files
