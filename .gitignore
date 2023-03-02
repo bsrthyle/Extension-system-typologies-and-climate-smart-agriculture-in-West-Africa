@@ -278,3 +278,4 @@ TSWLatexianTemp*
 # exclude data folder
 data/
 .DS_Store
+# some other files
