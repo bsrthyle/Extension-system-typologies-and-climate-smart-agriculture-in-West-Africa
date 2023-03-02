@@ -1,0 +1,481 @@
+---
+title: "Farmers advised by both public and private extension systems are more likely to practice Climate-smart agriculture in West Africa"
+subtitle: "Coefficent Plots"
+author: ''
+date: "Last updated: `r Sys.time()`"
+output: 
+ bookdown::pdf_document2:
+    keep_tex: true
+    template: ../helper_utilities/my_templet.tex
+    #highlight: zenburn
+header-includes:
+   - \usepackage[margin=2.8cm]{geometry}
+   - \renewcommand{\contentsname}{Table of Contents}
+   - \usepackage{enumitem}
+   - \usepackage{pifont}
+   - \renewcommand{\labelitemi}{$\rightarrow$}
+   - \usepackage{tocloft}
+   - \renewcommand\cftsecleader{\cftdotfill{\cftdotsep}}
+   - \usepackage{hyperref}
+   - \hypersetup{linkcolor = blue}
+   - \usepackage{hanging}
+   - \usepackage[T1]{fontenc}
+   - \usepackage{graphicx}
+   - \usepackage{booktabs,threeparttablex}
+   - \usepackage{pdflscape}
+   - \usepackage{fvextra}
+   - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+   - \usepackage{lmodern}
+   - \usepackage{nimbusmono}
+   - \renewcommand{\thetable}{SM\arabic{table}}
+   - \setlength{\cfttabnumwidth}{1cm}
+
+toc: false
+toccolor: 'blue'
+mainfont: 'lm'
+toc-title: "Table of Contents"
+---
+
+```{r setup, include=FALSE, warning=FALSE, comment=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE,
+  tidy = TRUE,
+  tidy.opts = list(width.cutoff = 60),
+  out.width = "100%"
+)
+
+options(width = 100)
+# load the required libraries
+
+#library(showtext)
+#showtext_auto()
+
+
+# load the required libraries
+pacman::p_load(
+jsonlite,
+sjlabelled,
+labelled,
+dataMaid,
+plotly,
+wesanderson,
+ggthemes,
+hrbrthemes,
+sjmisc,
+expss,
+haven,
+knitr,
+kableExtra,
+ggstream,
+ggstatsplot,
+highcharter,
+tidyverse
+)
+```
+\newpage
+\tableofcontents
+\newpage
+\listoftables
+\newpage
+
+```{r, echo=FALSE}
+coeff_tbl_1 <- read_delim("coeff_me_1.csv")
+
+coeff_tbl <- coeff_tbl_1%>%
+  mutate(p_label = case_when(
+    P_z<=0.01~ "***",
+    P_z<=0.05~ "**",
+    P_z<=0.1~ "*"
+    
+  ),
+  p_label= case_when(
+    is.na(p_label)~"", 
+    TRUE~p_label), 
+  p_label2=paste0(round(coef,3),p_label))
+
+```
+```{r}
+source("helper_utilities/Utils.R", local = knitr::knit_global())
+```
+
+
+```{r}
+palette_1 <- c("#ba324f","#04395e","#70a288","#6f2dbd","#d5896f")
+palette_2 <- c("#dcd6f7","#a6b1e1","#b4869f","#985f6f","#4e4c67")
+palette_3 <- c("#8ecae6","#219ebc","#126782","#023047","#ffb703","#fd9e02","#fb8500")
+palette_4 <- c("#21295c","#1b3b6f","#065a82","#1c7293","#9eb3c2")
+palette_5 <- c("#8ecae6","#219ebc","#023047","#ffb703","#fb8500")
+palette_6 <- c("#0A7029", "#0073C2", "#FF0000", "#202020")
+palette_7 <- wes_palette("Darjeeling2")
+palette_grey <- c("#d9dcd6","#d9dcd6","#d9dcd6","#d9dcd6")
+
+```
+```{r}
+df_ground <- read_dta("stata_workspace/Groundnut_data_revision.dta")
+```
+
+# Figure 1: Sustainable intensification practices by country and year
+
+
+```{r}
+# plot interest variables
+df_interest <- df_ground%>%
+  dplyr::select(year, country, adopt,intercropping,crop_rotation,organic_fert)%>%
+  pivot_longer(cols = c(adopt,intercropping,crop_rotation,organic_fert), names_to = "interest_var", values_to = "if_used")
+
+df_interest_1 <- df_ground%>%
+  group_by(year, country)%>%
+  summarise(total_obs= n())
+df_interest_2 <- df_interest%>%
+  group_by(year,country,interest_var)%>%
+  summarise(no_users=sum(if_used))%>%
+  left_join(df_interest_1)%>%
+  mutate(percent_adopt = (no_users/total_obs)*100)%>%
+  mutate(var_int = case_when(
+   interest_var=="adopt" ~ "Improved seeds",
+   interest_var=="crop_rotation" ~ "Crop rotation",    
+   interest_var=="intercropping" ~ "Intercropping",   
+   interest_var=="organic_fert" ~ "Organic fertilizers",      
+  ))%>%
+  mutate(year= factor(year))
+  
+```
+```{r}
+clr_new = c("#253676", "#3EA0D7", "#EF9118")
+plot_1 <- ggplot(df_interest_2, aes(x=year, y=percent_adopt, fill=country)) +
+  geom_col(position = "dodge", width = 0.5)+
+    geom_text(aes(label=round(percent_adopt, 2)),
+      position = position_dodge(0.8),
+      vjust = -1.0,
+      hjust = -0.1,
+      show.legend = FALSE,
+      size = 4,
+      #angle = 90,
+      family = my_font
+    )+
+  facet_wrap(~var_int, ncol = 2, scales = "free_y")+
+  
+  
+  #ggtech::scale_fill_tech('twitter')+
+  scale_fill_manual(values = alpha(palette_1, 0.6))+
+  #ggtech::theme_airbnb_fancy()+
+  ggthemes::theme_clean(base_family = my_font, base_size = 15 ) + 
+  labs(x="", y="Percent of farmers") + 
+  theme(
+    panel.grid.major = element_line(size = 0.1),
+    strip.text = element_text(family = my_font, size = 14),
+    text = element_text(family = my_font),
+    legend.position = 'bottom',
+    legend.title  = element_blank(),
+    legend.background = element_rect(colour = NA), 
+    legend.text = element_text(family = my_font, size = 12),
+    strip.background = element_blank()
+  )
+
+plot_1
+
+ggsave(plot = plot_1, filename = "figures/descriptive_plot_1.svg", width = 35, height = 25, units = "cm")
+
+```
+
+
+
+# Figure 2: Extension typologies by country and year
+
+
+
+```{r}
+df_1 <- df_ground%>%
+  select(year, country, exten)%>%
+  mutate(exten= factor(exten, levels = c(0, 1, 2, 3), labels = c("None","Private<br>extension","Public<br>extension","Joint Public-private<br>extension")))
+
+df_2 <- df_1 %>%
+  dplyr::group_by(country, year)%>%
+  summarise(n=n())
+df_3 <- df_1%>%
+  group_by(year, country, exten)%>%
+  summarise(extension = n())%>%
+  left_join(df_2)%>%
+  mutate(ptg=(extension/n)*100)%>%
+  mutate(year= factor(year))
+
+df_4 <- df_1%>%
+  select(year, exten)%>%
+  group_by(year)%>%
+  summarise(n=n())
+
+df_5 <- df_1%>%
+  select(year, exten)%>%
+  group_by(year, exten)%>%
+  summarise(n1=n())%>%
+  left_join(df_4)%>%
+  mutate(ptg=(n1/n)*100)%>%
+  mutate(year= factor(year))
+  
+
+```
+```{r}
+plot_3 <- ggplot(df_5, aes(x=exten, y=ptg, fill=exten)) +
+  geom_col(position = "dodge", width = 0.5)+
+    geom_text(
+      aes_string(y=df_5$ptg , label = round(df_5$ptg,1) ),
+      position = position_dodge(0.8),
+      show.legend = FALSE,
+      size = 5,
+      #angle = 90,
+      family = my_font
+    )+
+  facet_wrap(~year)+
+  
+  
+  #ggtech::scale_fill_tech('twitter')+
+  scale_fill_manual(values = alpha(palette_7, 0.8))+
+  #scale_fill_viridis_d(option = 'A')+
+  #scale_fill_brewer(palette = 'Blues')+
+  ggthemes::theme_clean(base_family = my_font, base_size = 18 ) + 
+  labs(x="", y="Percent of farmers") + 
+  theme(
+    panel.grid.major = element_line(size = 0.1),
+    strip.text = element_text(family = my_font, size = 20),
+    text = element_text(family = my_font),
+    axis.text.x  = ggtext::element_markdown(),
+    legend.position = 'none',
+    legend.title  = element_text(face = "plain", size = 12, family = my_font),
+    legend.background = element_rect(colour = NA), 
+    legend.text = element_text(family = my_font, size = 12),
+    strip.background = element_blank()
+  )
+plot_3
+ggsave(plot = plot_3, filename = "figures/descriptive_plot_interest_3.svg", width = 40, height = 25, units = "cm")
+```
+
+```{r}
+plot_4 <- ggplot(df_3, aes(x=exten, y=ptg, fill=exten)) +
+  geom_col(position = "dodge", width = 0.5)+
+    geom_text(
+      aes_string(y=df_3$ptg , label = round(df_3$ptg,1) ),
+      position = position_dodge(0.9),
+      show.legend = FALSE,
+      size = 5,
+      #angle = 90,
+      family = my_font
+    )+
+  facet_grid(year~country, scales = "free_y")+
+  
+  
+  #ggtech::scale_fill_tech('twitter')+
+  scale_fill_manual(values = alpha(palette_5, 0.7))+
+  #scale_fill_viridis_d(option = 'A')+
+  #scale_fill_brewer(palette = 'Blues')+
+  ggthemes::theme_clean(base_family = my_font, base_size = 18 ) + 
+  labs(x="", y="Percent of farmers") + 
+  theme(
+    panel.grid.major = element_line(size = 0.1),
+    strip.text = element_text(family = my_font, size = 20),
+    text = element_text(family = my_font),
+    axis.text.x  = ggtext::element_markdown(),
+    legend.position = 'none',
+    legend.title  = element_text(face = "plain", size = 12, family = my_font),
+    legend.background = element_rect(colour = NA), 
+    legend.text = element_text(family = my_font, size = 12),
+    strip.background = element_blank()
+  )
+plot_4
+ggsave(plot = plot_4, filename = "figures/descriptive_plot_interest.svg", width = 40, height = 25, units = "cm")
+```
+
+# Figure 3: Access to Extension service and CSA practices
+
+```{r}
+df_tbl_1b <- coeff_tbl%>%
+  filter(tbl_num==1)
+plt_tbl_1b <- 
+ggplot(df_tbl_1b, aes(y=coef, x=label_3, fill=label_3)) +
+  geom_col(position = "dodge", width = 0.35)+
+    geom_errorbar(
+      aes_string(ymin = "ci_low", ymax = "ci_high"), 
+      position = position_dodge(0.4),
+      width = 0.035,
+      size=0.6
+      
+    ) +
+  geom_hline(
+      yintercept = 0,
+      size = 0.3,
+      color = "grey"
+    ) +
+  geom_point(position = position_dodge(0.3), size = 3, shape=15, color="#FF0000") +
+    geom_text(
+      aes_string(label = "p_label2"),
+      position = position_dodge(0.9),
+      vjust = 0.5 * -1.5,
+      hjust = -0.2,
+      show.legend = FALSE,
+      size = 4,
+      family = my_font
+    ) +
+  scale_fill_manual(values = alpha(palette_1, 0.8)) +
+  facet_wrap(~var_name2) +
+  labs(y = "Marginal Effects(95% Robust CI)",x="") +
+    ggthemes::theme_base() +
+    theme(
+      legend.position = "none",
+      text = element_text(family = my_font, size = 14),
+      strip.background = element_rect(),
+      panel.border = element_rect(size = 0, fill = NA),
+      axis.text.x = ggtext::element_markdown(),
+      strip.text = element_text(
+        family = my_font,
+        size = 14,
+        color = "#4D4D4D"
+      ))
+
+plt_tbl_1b
+
+ggsave(filename = "figures/fig_3.png", plt_tbl_1b, width = 20, height = 12, units = "cm")
+
+
+```
+
+
+
+
+# Figure 4: Cross-country heterogeneity estimates of extension advice and CSA
+
+```{r}
+df_tbl_2 <- coeff_tbl%>%
+  filter(tbl_num==2)
+plt_tbl_2 <- 
+ggplot(df_tbl_2, aes(y=coef, x=var_name, fill=var_name)) +
+  geom_col(position = "dodge", width = 0.35)+
+    geom_errorbar(
+      aes_string(ymin = "ci_low", ymax = "ci_high"), 
+      position = position_dodge(0.4),
+      width = 0.035,
+      size=0.6
+      
+    ) +
+  geom_hline(
+      yintercept = 0,
+      size = 0.3,
+      color = "grey"
+    ) +
+  geom_point(position = position_dodge(0.3), size = 2, shape=15, color="#FF0000") +
+    geom_text(
+      aes_string(label = "p_label2"),
+      position = position_dodge(0.9),
+      vjust = 0.5 * -1.5,
+      hjust = -0.2,
+      show.legend = FALSE,
+      size = 4,
+      family = my_font
+    ) +
+  scale_fill_manual(values = alpha(palette_1, 0.9)) +
+  facet_grid(country_2~label_2, scales = "free_y") +
+  labs(y = "Marginal Effects(95% Robust CI)",x="") +
+    ggthemes::theme_base() +
+    theme(
+      legend.position = "none",
+      text = element_text(family = my_font, size = 14),
+      strip.background = element_rect(),
+      panel.border = element_rect(size = 0, fill = NA),
+      axis.text.x = ggtext::element_markdown(),
+      strip.text = element_text(
+        family = my_font,
+        size = 14,
+        color = "#4D4D4D"
+      ))
+
+plt_tbl_2
+
+
+  
+ggsave(filename = "figures/fig_4.png", plt_tbl_2, width = 37, height = 28, units = "cm")
+
+```
+# Figure 5: Interdependencies in the CSA practices 
+
+```{r}
+corr_c <- c("1",	"-0,0485",	"0,3479***",	"0,1656**",	"-0,0485",	"1",	"-0,1353***",	"0,1423*",	"0,3479***",	"-0,1353***",	"1"	,"0,2911***",	"0,1656**",	"0,1423*",	"0,2911***	","1")
+
+corr_c_2 <- gsub("\\*+", "", corr_c)
+corr_c_2 <- gsub("\\,", ".", corr_c_2)
+corr_c_2 <- as.numeric(corr_c_2)
+corr_m <- matrix(as.vector(corr_c), nrow=4, dimnames = list(c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers"),c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers")))
+
+corr_m_2 <- matrix(as.vector(corr_c_2), nrow=4, dimnames = list(c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers"),c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers")))
+```
+
+```{r}
+corr_g_1<-c(1,	-0.043,	0.029,	0.034,
+-0.043,	1,	-0.237,	0.047,
+0.029,	-0.237,	1,	0.138,
+0.034,	0.047,	0.138,	1
+)
+
+corr_g <- matrix(as.vector(corr_g_1), nrow=4, dimnames = list(c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers"),c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers")))
+corr_m_1 <- c(1,	0.026,	0.271,	0.494,
+0.026,	1,	-0.045,	0.24,
+0.271,	-0.045,	1,	-0.492,
+0.494,	0.24,	-0.492,	1
+)
+corr_m <- matrix(as.vector(corr_m_1), nrow=4, dimnames = list(c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers"),c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers")))
+corr_n_1 <- c(
+  1,	-0.07,	0.604,	0.205,
+-0.07,	1,	-0.123,	0.141,
+0.604,	-0.123,	1,	0.369,
+0.205,	0.141,	0.369,	1
+
+)
+
+corr_n <- matrix(as.vector(corr_n_1), nrow=4, dimnames = list(c("Crop<br>rotation",	"Improved<br>seeds",	"Intercropping",	"Organic<br>fertilizers"),c("Crop rotation",	"Improved seeds",	"Intercropping",	"Organic fertilizers")))
+```
+```{r}
+ggcorrplot::ggcorrplot(corr_n, hc.order = TRUE,
+type = "lower", lab = TRUE, legend.title = "", show.diag = T, outline.color = "white",colors = c("#6D9EC1", "white", "#E46726")) + 
+  theme(axis.text.x  = ggtext::element_markdown(angle = 0,hjust = 0),
+        text = element_text(family = my_font))
+```
+
+
+
+
+
+```{r}
+library(GGally)
+pp <- ggcorr(data = NULL, cor_matrix=corr_m_2, palette = "PuBU", drop = F,  label = T, label_round = 3)+ 
+  theme_hc(base_family = my_font)+
+  theme(axis.text = ggtext::element_markdown())
+pp
+ggsave("coorolation_matrix.svg", pp, width = 30, height = 12, units = "cm")
+
+
+pp_g <- ggcorr(data = NULL, cor_matrix=corr_g, palette = "PuBU", drop = F,  label = T, label_round = 3)+ 
+  theme_hc(base_family = my_font)+
+  theme(axis.text = ggtext::element_markdown())
+pp_g
+ggsave("coorolation_matrix_g.svg", pp_g, width = 30, height = 12, units = "cm")
+
+pp_m <- ggcorr(data = NULL, cor_matrix=corr_m, palette = "PuBU", drop = F,  label = T, label_round = 3)+ 
+  theme_hc(base_family = my_font)+
+  theme(axis.text = ggtext::element_markdown())
+pp_m
+ggsave("coorolation_matrix_m.svg", pp_m, width = 30, height = 12, units = "cm")
+
+pp_n <- ggcorr(data = NULL, cor_matrix=corr_n, palette = "PuBU", drop = F,  label = T, label_round = 3)+ 
+  theme_hc(base_family = my_font)+
+  theme(axis.text = ggtext::element_markdown())
+pp_n
+ggsave("coorolation_matrix_n.svg", pp_n, width = 30, height = 12, units = "cm")
+
+library(patchwork)
+all_pp <- pp + pp_g + pp_m + pp_n + plot_layout(ncol=2,guides='collect')&
+  theme(legend.position = "right")
+
+all_pp
+ggsave("coorolation_matrix_all.svg", all_pp, width = 30, height = 12, units = "cm")
+
+```
+

@@ -1,0 +1,333 @@
+---
+title: "Different extension system typologies promote climate-smart agriculture in West Africa"
+subtitle: "Supplementary Material"
+author: ''
+date: "Last updated: `r Sys.time()`"
+output: 
+ bookdown::pdf_document2:
+    keep_tex: true
+    template: helper_utilities/my_templet.tex
+    #highlight: zenburn
+header-includes:
+   - \usepackage[margin=2.8cm]{geometry}
+   - \renewcommand{\contentsname}{Table of Contents}
+   - \usepackage{enumitem}
+   - \usepackage{pifont}
+   - \renewcommand{\labelitemi}{$\rightarrow$}
+   - \usepackage{tocloft}
+   - \renewcommand\cftsecleader{\cftdotfill{\cftdotsep}}
+   - \usepackage{hyperref}
+   - \hypersetup{linkcolor = blue}
+   - \usepackage{hanging}
+   - \usepackage[T1]{fontenc}
+   - \usepackage{graphicx}
+   - \usepackage{booktabs,threeparttablex}
+   - \usepackage{pdflscape}
+   - \usepackage{fvextra}
+   - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+   - \usepackage{lmodern}
+   - \usepackage{nimbusmono}
+   - \renewcommand{\thetable}{SM\arabic{table}}
+   - \setlength{\cfttabnumwidth}{1cm}
+   - \usepackage{fouriernc}
+
+toc: false
+toccolor: 'blue'
+mainfont: 'lm'
+toc-title: "Table of Contents"
+---
+
+```{r setup, include=FALSE, warning=FALSE, comment=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE,
+  tidy = TRUE,
+  tidy.opts = list(width.cutoff = 60),
+  out.width = "100%"
+)
+
+options(width = 100)
+# load the required libraries
+
+
+
+# load the required libraries
+pacman::p_load(
+jsonlite,
+sjlabelled,
+labelled,
+dataMaid,
+plotly,
+wesanderson,
+ggthemes,
+hrbrthemes,
+sjmisc,
+expss,
+haven,
+knitr,
+kableExtra,
+ggstream,
+ggstatsplot,
+highcharter,
+tidyverse
+)
+```
+\newpage
+
+\newpage
+\listoftables
+\newpage
+
+```{r, echo=FALSE}
+list_of_tables <- list()
+file_names <- list.files(here::here("tables"), pattern = "*.txt")
+
+for(i in 1:length(file_names)){
+  list_of_tables[[i]] <- readr::read_delim(here::here("tables", file_names[[i]]), delim = "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1,na = "empty" )
+}
+
+
+names(list_of_tables) <- str_replace(file_names, ".txt", "")
+
+
+change_names <- function(df){
+  names(df) <- str_replace(names(df), "_", "-")
+  return(df)
+}
+
+list_of_tables <- purrr::map(list_of_tables, change_names)
+
+clean_space <- function(df) {
+  df %>%
+    mutate_all(~ (str_replace_all(., "%", "\\\\%")))%>%
+    mutate_all(~(str_replace_all(., "_", "\\\\_")))%>%
+    mutate_all(~(str_replace_all(., "#", "\\\\#")))
+}
+
+list_of_tables <- purrr::map(list_of_tables, clean_space)
+
+
+color_significance <- function(df){
+  df[-1] <- lapply(
+  df[-1], function(x){
+    cell_spec(x, background = ifelse(str_count(x, "\\*")==1, "#8C2981", ifelse(str_count(x, "\\*")==2, "#640A80", ifelse(str_count(x, "\\*")==3, "#3C0F70", "white"))),color = ifelse(str_count(x, "\\*")>=1, "White", "black" ),bold = ifelse(str_count(x, "\\*")>=1,T, F ))
+  }
+)
+  
+  return(df)
+}
+
+bold_significance <- function(df){
+  df[-1] <- lapply(
+  df[-1], function(x){
+    cell_spec(x, bold = ifelse(str_count(x, "\\*")>=1,T, F ))
+  }
+)
+  
+  return(df)
+}
+```
+
+
+
+\begin{table}[]
+\caption{Descriptive plot: Distribution of extension systems by year}
+\label{tab:my-table2}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l}
+\begin{minipage}{\textwidth}
+      \includegraphics[width=\textwidth]{descriptive_plot_interest_3.png}
+    \end{minipage}
+\end{tabular}%
+}
+\end{table}
+
+\clearpage
+
+\begin{table}[]
+\caption{Correlation between CSA practises by country}
+\label{tab:my-table}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrr}
+\hline
+Variable1      & Variable2          & \multicolumn{1}{l}{Coefficient} & \multicolumn{1}{l}{Robust std. err.} & \multicolumn{1}{l}{Z} & \multicolumn{1}{l}{P \textgreater Z} & \multicolumn{2}{l}{{[}95\% conf. interval{]}} \\ \hline
+\multicolumn{8}{l}{\cellcolor[HTML]{DBE8FF}Overall}                                                                                                                                                                         \\ \hline
+Crop rotation  & Improved seeds     & -0.049                          & 0.048                                & -1.02                 & 0.31                                 & -0.143                & 0.045                 \\
+Crop rotation  & Intercropping      & 0.348                           & 0.104                                & 3.33                  & 0.001                                & 0.143                 & 0.552                 \\
+Crop rotation  & Organic fertilizer & 0.168                           & 0.084                                & 1.99                  & 0.046                                & 0.003                 & 0.332                 \\
+Improved seeds & Intercropping      & -0.136                          & 0.041                                & -3.33                 & 0.001                                & -0.216                & -0.056                \\
+Improved seeds & Organic fertilizer & 0.141                           & 0.079                                & 1.79                  & 0.074                                & -0.014                & 0.296                 \\
+Intercropping  & Organic fertilizer & 0.294                           & 0.083                                & 3.55                  & 0                                    & 0.132                 & 0.457                 \\ \hline
+\multicolumn{8}{l}{\cellcolor[HTML]{DBE8FF}Ghana}                                                                                                                                                                           \\ \hline
+Crop rotation  & Improved seeds     & -0.043                          & 0.08                                 & -0.53                 & 0.595                                & -0.2                  & 0.114                 \\
+Crop rotation  & Intercropping      & 0.029                           & 0.213                                & 0.14                  & 0.891                                & -0.389                & 0.447                 \\
+Crop rotation  & Organic fertilizer & 0.034                           & 0.098                                & 0.35                  & 0.724                                & -0.157                & 0.226                 \\
+Improved seeds & Intercropping      & -0.237                          & 0.044                                & -5.42                 & 0                                    & -0.323                & -0.152                \\
+Improved seeds & Organic fertilizer & 0.047                           & 0.09                                 & 0.52                  & 0.604                                & -0.13                 & 0.223                 \\
+Intercropping  & Organic fertilizer & 0.138                           & 0.055                                & 2.52                  & 0.012                                & 0.031                 & 0.246                 \\ \hline
+\multicolumn{8}{l}{\cellcolor[HTML]{DBE8FF}Mali}                                                                                                                                                                            \\ \hline
+Crop rotation  & Improved seeds     & 0.026                           & 0.154                                & 0.17                  & 0.865                                & -0.276                & 0.328                 \\
+Crop rotation  & Intercropping      & 0.271                           & 0.119                                & 2.27                  & 0.023                                & 0.037                 & 0.505                 \\
+Crop rotation  & Organic fertilizer & 0.494                           & 0.044                                & 11.34                 & 0                                    & 0.409                 & 0.58                  \\
+Improved seeds & Intercropping      & -0.045                          & 0.068                                & -0.66                 & 0.506                                & -0.179                & 0.088                 \\
+Improved seeds & Organic fertilizer & 0.24                            & 0.064                                & 3.73                  & 0                                    & 0.114                 & 0.366                 \\
+Intercropping  & Organic fertilizer & -0.492                          & 0.287                                & -1.72                 & 0.086                                & -1.053                & 0.07                  \\ \hline
+\multicolumn{8}{l}{\cellcolor[HTML]{DBE8FF}Nigeria}                                                                                                                                                                         \\ \hline
+Crop rotation  & Improved seeds     & -0.07                           & 0.055                                & -1.27                 & 0.204                                & -0.177                & 0.038                 \\
+Crop rotation  & Intercropping      & 0.604                           & 0.117                                & 5.18                  & 0                                    & 0.375                 & 0.832                 \\
+Crop rotation  & Organic fertilizer & 0.205                           & 0.107                                & 1.92                  & 0.055                                & -0.005                & 0.415                 \\
+Improved seeds & Intercropping      & -0.123                          & 0.05                                 & -2.44                 & 0.015                                & -0.221                & -0.024                \\
+Improved seeds & Organic fertilizer & 0.141                           & 0.1                                  & 1.41                  & 0.158                                & -0.054                & 0.336                 \\
+Intercropping  & Organic fertilizer & 0.369                           & 0.084                                & 4.39                  & 0                                    & 0.204                 & 0.533                 \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+```{r, echo=FALSE, include=FALSE}
+print(".")
+```
+\pagebreak
+
+\clearpage
+
+```{r}
+
+df <- list_of_tables$si_mvp1%>%
+  mutate(
+    LABELS = case_when(
+      LABELS=="" ~ VARIABLES,
+      TRUE ~ LABELS
+    )
+  )%>%
+  select(-VARIABLES)%>%
+  rename(Variables = LABELS)%>%
+  select(-c(starts_with("ata")))%>%
+  bold_significance()
+
+df[1,1] <- "Private extension"
+df[3,1] <- "Public extension"
+df[5,1] <- "Joint Public-private extension"
+
+
+kableExtra::kbl(df, longtable = T, booktabs = T,linesep = "", escape=F, col.names = c("Variables", "Crop rotation", "Improved seeds",  "Intercropping", "Organic fertilisers"), align="lrrrr", caption = "Access to extension services and CSA - (CRE)")%>%
+#kableExtra::landscape()%>%
+#add_header_above(c(" ", "(1)" = 2, "(2)" = 2, "(3)" = 2, "(4)" = 2))  %>%
+kable_styling(font_size = 7, latex_options = c("repeat_header"))%>%
+  row_spec(45, hline_after = T)%>%
+  row_spec(50, hline_after = T)
+```
+
+\newpage
+
+```{r}
+
+df <- list_of_tables$si_mvp2%>%
+  mutate(
+    LABELS = case_when(
+      LABELS=="" ~ VARIABLES,
+      TRUE ~ LABELS
+    )
+  )%>%
+  select(-VARIABLES)%>%
+  rename(Variables = LABELS)%>%
+  select(-c(starts_with("ata")))%>%
+  bold_significance()
+
+df[1,1] <- "Private extension"
+df[3,1] <- "Public extension"
+df[5,1] <- "Joint Public-private extension"
+
+kableExtra::kbl(df, longtable = T, booktabs = T, linesep = "", escape=F, col.names = c("Variables", "Crop rotation", "Improved seeds",  "Intercropping", "Organic fertilisers"), align="lrrrr", caption = "Access to extension services and CSA - (CRE) (Ghana)")%>%
+#kableExtra::landscape()%>%
+#add_header_above(c(" ", "(1)" = 2, "(2)" = 2, "(3)" = 2, "(4)" = 2))  %>%
+kable_styling(font_size = 7, latex_options = c("repeat_header"))%>%
+  row_spec(45, hline_after = T)%>%
+  row_spec(50, hline_after = T)
+```
+
+\newpage
+
+
+
+```{r}
+
+df <- list_of_tables$si_mvp3%>%
+  mutate(
+    LABELS = case_when(
+      LABELS=="" ~ VARIABLES,
+      TRUE ~ LABELS
+    )
+  )%>%
+  select(-VARIABLES)%>%
+  rename(Variables = LABELS)%>%
+  select(-c(starts_with("ata")))%>%
+  bold_significance()
+
+
+df[1,1] <- "Private extension"
+df[3,1] <- "Public extension"
+df[5,1] <- "Joint Public-private extension"
+
+kableExtra::kbl(df, longtable = T, booktabs = T, escape=F, linesep = "", col.names = c("Variables", "Crop rotation", "Improved seeds",  "Intercropping", "Organic fertilisers"), align="lrrrr", caption = "Access to extension services and CSA - (CRE) (Mali)")%>%
+#kableExtra::landscape()%>%
+#add_header_above(c(" ", "(1)" = 2, "(2)" = 2, "(3)" = 2, "(4)" = 2))  %>%
+kable_styling(font_size = 7, latex_options = c("repeat_header"))%>%
+  row_spec(45, hline_after = T)%>%
+  row_spec(50, hline_after = T)
+```
+
+\newpage
+
+```{r}
+
+df <- list_of_tables$si_mvp4%>%
+  mutate(
+    LABELS = case_when(
+      LABELS=="" ~ VARIABLES,
+      TRUE ~ LABELS
+    )
+  )%>%
+  select(-VARIABLES)%>%
+  rename(Variables = LABELS)%>%
+  select(-c(starts_with("ata")))%>%
+  bold_significance()
+
+
+df[1,1] <- "Private extension"
+df[3,1] <- "Public extension"
+df[5,1] <- "Joint Public-private extension"
+
+kableExtra::kbl(df, longtable = T, booktabs = T, escape=F, linesep = "", col.names = c("Variables", "Crop rotation", "Improved seeds",  "Intercropping", "Organic fertilisers"), align="lrrrr", caption = "Access to extension services and CSA - (CRE) (Nigeria)")%>%
+#kableExtra::landscape()%>%
+#add_header_above(c(" ", "(1)" = 2, "(2)" = 2, "(3)" = 2, "(4)" = 2))  %>%
+kable_styling(font_size = 7, latex_options = c("repeat_header"))%>%
+  row_spec(45, hline_after = T)%>%
+  row_spec(50, hline_after = T)
+```
+
+
+\newpage
+
+```{r}
+
+df <- list_of_tables$pesti_9%>%
+  mutate(
+    LABELS = case_when(
+      LABELS=="" ~ VARIABLES,
+      TRUE ~ LABELS
+    )
+  )%>%
+  select(-VARIABLES)%>%
+  rename(Variables = LABELS)%>%
+  bold_significance()%>%
+  select(!starts_with("/"))
+
+
+kableExtra::kbl(df, longtable = T, booktabs = T, escape=F, linesep = "", col.names = c("Variables", "Overall","Ghana","Mali","Nigeria"), align="lrrrr", caption = "Attrition bias check")%>%
+#add_header_above(c(" ", "Use" = 2, "Intensity" = 2))  %>%
+kable_styling(font_size = 7, latex_options = c("repeat_header"))%>%
+  row_spec(26, hline_after = T)
+```
+
+
