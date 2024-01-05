@@ -39,7 +39,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Different extension system typologies promote climate-smart agriculture in West Africa},
+  pdftitle={Farmers advised by both public and private extension systems are more likely to adopt climate-smart agriculture in West Africa},
   colorlinks=true,
   linkcolor=Maroon,
   filecolor=Maroon,
@@ -74,12 +74,15 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{booktabs,threeparttablex}
+\usepackage{multirow}
+\usepackage{caption}
 \usepackage{pdflscape}
 \usepackage{fvextra}
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 \usepackage{lmodern}
 \usepackage{nimbusmono}
 \renewcommand{\thetable}{SM\arabic{table}}
+\renewcommand{\thefigure}{SM\arabic{figure}}
 \setlength{\cfttabnumwidth}{1cm}
 \usepackage{fouriernc}
 \usepackage{booktabs}
@@ -100,7 +103,7 @@
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
-\title{Different extension system typologies promote climate-smart agriculture in West Africa}
+\title{Farmers advised by both public and private extension systems are more likely to adopt climate-smart agriculture in West Africa}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -108,7 +111,7 @@
 }
 \makeatother
 \subtitle{Supplementary Material}
-\date{Last updated: 2023-03-02 21:28:41}
+\date{Last updated: 2023-12-02 10:07:48.162413}
 
 \begin{document}
 \maketitle
@@ -117,19 +120,31 @@
 
 \newpage
 \listoftables
+\listoffigures
 \newpage
 
-\begin{table}[]
-\caption{Descriptive plot: Distribution of extension systems by year}
-\label{tab:my-table2}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{l}
-\begin{minipage}{\textwidth}
-      \includegraphics[width=\textwidth]{descriptive_plot_interest_3.png}
-    \end{minipage}
-\end{tabular}%
-}
+\begin{table}[ht]
+\centering
+\caption{Sample Size by Country and Year}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Country & 2017 & 2018 & 2019 \\ 
+\midrule
+Ghana   &  900 &  540 &  506 \\
+Mali    & 1350 &  900 &  840 \\
+Nigeria & 2500 & 1600 & 1530 \\
+\bottomrule
+\end{tabular}
+
+\label{tab:sample_size}
 \end{table}
+
+\begin{figure}[!htb]
+  \centering
+
+      \includegraphics[width=\textwidth]{descriptive_plot_interest_3.png}
+  \caption{Descriptive plot: Distribution of extension systems by year}
+\end{figure}
 
 \clearpage
 
@@ -176,15 +191,80 @@ Intercropping  & Organic fertilizer & 0.369                           & 0.084   
 
 \clearpage
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{"figures/map_private.png"}
+\caption{Private extension system and CSA practises  by region (2019)}
+\caption*{Note: The map illustrates the CSA practices in Ghana, Mali and Nigeria. The shaded areas on the map indicate the percentage of households adopting these CSA practices, with varying intensities of shade representing different levels of adoption: the lightest shade denotes 0-25\% adoption, followed by a light shade for 26-50\%, a medium shade for 51-75\%, and a dark shade for 76-100\% of adoption. Overlaid on these shaded regions are points of varying sizes, each representing the extent of access to private extension services in different regions of the country. The size of these points corresponds to the percentage of households with access to these services: the smallest points indicate 0-5\% access, increasing in size from 6-10\%, 11-15\%, 16-20\%, 21 -25\% , 25-30\% and the largest points for more than 30\% access.}
+\label{fig:map_1}
+\end{figure}
+
+\newpage
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{"figures/map_public.png"}
+\caption{Public extension system and CSA practises  by region (2019)}
+\caption*{Note: The map illustrates the CSA practices in Ghana, Mali and Nigeria. The shaded areas on the map indicate the percentage of households adopting these CSA practices, with varying intensities of shade representing different levels of adoption: the lightest shade denotes 0-25\% adoption, followed by a light shade for 26-50\%, a medium shade for 51-75\%, and a dark shade for 76-100\% of adoption. Overlaid on these shaded regions are points of varying sizes, each representing the extent of access to public extension services in different regions of the country. The size of these points corresponds to the percentage of households with access to these services: the smallest points indicate 0\% access, increasing to 0-20\%, 20-40\%, and the largest points for more than 40\% access.}
+\label{fig:map_1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{"figures/map_joint.png"}
+\caption{Note: Joint Public-private extension system and CSA practises  by region (2019)}
+\caption*{The map illustrates the CSA practices in Ghana, Mali and Nigeria. The shaded areas on the map indicate the percentage of households adopting these CSA practices, with varying intensities of shade representing different levels of adoption: the lightest shade denotes 0-25\% adoption, followed by a light shade for 26-50\%, a medium shade for 51-75\%, and a dark shade for 76-100\% of adoption. Overlaid on these shaded regions are points of varying sizes, each representing the extent of access to joint public-private extension services in different regions of the country. The size of these points corresponds to the percentage of households with access to these services: the smallest points indicate 0\% access, increasing to 0-20\%, 20-40\%,40-60\% and the largest points for more than 60\% access.}
+\label{fig:map_1}
+\end{figure}
+
+\clearpage
+
 \begingroup\fontsize{7}{9}\selectfont
 
 \begin{longtable}[t]{lrrrr}
-\caption{\label{tab:unnamed-chunk-3}Access to extension services and CSA - (CRE)}\\
+\caption{\label{tab:unnamed-chunk-3}Access to extension services and CSA - (CRE) (Without Controls)}\\
 \toprule
 Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
 \midrule
 \endfirsthead
-\caption[]{\label{tab:unnamed-chunk-3}Access to extension services and CSA - (CRE) \textit{(continued)}}\\
+\caption[]{\label{tab:unnamed-chunk-3}Access to extension services and CSA - (CRE) (Without Controls) \textit{(continued)}}\\
+\toprule
+Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Private extension & 0.185 & \textbf{-0.552**} & -0.290 & \textbf{-0.883***}\\
+ & (0.397) & (0.240) & (0.231) & (0.224)\\
+Public extension & \textbf{0.527***} & -0.0885 & 0.175 & \textbf{-0.606***}\\
+ & (0.201) & (0.208) & (0.144) & (0.194)\\
+Joint Public-private extension & \textbf{0.607***} & \textbf{0.524**} & 0.00917 & \textbf{-0.376*}\\
+ & (0.183) & (0.238) & (0.171) & (0.219)\\
+Constant & \textbf{-0.482**} & \textbf{-0.502**} & \textbf{-0.313***} & 0.252\\
+ & (0.191) & (0.244) & (0.118) & (0.188)\\
+\midrule
+Observations & 8,604 & 8,604 & 8,604 & 8,604\\
+Additional controls & No & No & No & No\\
+District FE & No & No & No & No\\
+Year FE & Yes & Yes & Yes & Yes\\
+\midrule
+Robust standard errors in parentheses &  &  &  & \\
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  & \\*
+\end{longtable}
+\endgroup{}
+
+\newpage
+
+\begingroup\fontsize{7}{9}\selectfont
+
+\begin{longtable}[t]{lrrrr}
+\caption{\label{tab:unnamed-chunk-4}Access to extension services and CSA - (CRE)}\\
+\toprule
+Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-4}Access to extension services and CSA - (CRE) \textit{(continued)}}\\
 \toprule
 Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
 \midrule
@@ -255,12 +335,12 @@ Robust standard errors in parentheses &  &  &  & \\
 \begingroup\fontsize{7}{9}\selectfont
 
 \begin{longtable}[t]{lrrrr}
-\caption{\label{tab:unnamed-chunk-4}Access to extension services and CSA - (CRE) (Ghana)}\\
+\caption{\label{tab:unnamed-chunk-5}Access to extension services and CSA - (CRE) (Ghana)}\\
 \toprule
 Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
 \midrule
 \endfirsthead
-\caption[]{\label{tab:unnamed-chunk-4}Access to extension services and CSA - (CRE) (Ghana) \textit{(continued)}}\\
+\caption[]{\label{tab:unnamed-chunk-5}Access to extension services and CSA - (CRE) (Ghana) \textit{(continued)}}\\
 \toprule
 Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
 \midrule
@@ -269,12 +349,12 @@ Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers
 \endfoot
 \bottomrule
 \endlastfoot
-Private extension & \textbf{-0.909*} &  & \textbf{-1.042**} & \textbf{0.936***}\\
- & (0.540) &  & (0.447) & (0.100)\\
+Private extension & \textbf{-0.909*} & 0 & \textbf{-1.042**} & \textbf{0.936***}\\
+ & (0.540) & 0 & (0.447) & (0.100)\\
 Public extension & -0.134 & \textbf{1.180***} & -0.0590 & 0.0992\\
  & (0.175) & (0.425) & (0.226) & (0.266)\\
-Joint Public-private extension & 0.0418 & \textbf{2.336***} & -0.0913 & \\
- & (0.148) & (0.379) & (0.263) & \\
+Joint Public-private extension & 0.0418 & \textbf{2.336***} & -0.0913 & 0\\
+ & (0.148) & (0.379) & (0.263) & 0\\
 Age of household head (years) & -0.267 & -0.202 & 0.103 & -0.107\\
  & (0.172) & (0.165) & (0.197) & (0.180)\\
 Sex of household head (dummy, male=1) & 0.0430 & 0.166 & \textbf{-0.314**} & 0.332\\
@@ -331,12 +411,12 @@ Robust standard errors in parentheses &  &  &  & \\
 \begingroup\fontsize{7}{9}\selectfont
 
 \begin{longtable}[t]{lrrrr}
-\caption{\label{tab:unnamed-chunk-5}Access to extension services and CSA - (CRE) (Mali)}\\
+\caption{\label{tab:unnamed-chunk-6}Access to extension services and CSA - (CRE) (Mali)}\\
 \toprule
 Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
 \midrule
 \endfirsthead
-\caption[]{\label{tab:unnamed-chunk-5}Access to extension services and CSA - (CRE) (Mali) \textit{(continued)}}\\
+\caption[]{\label{tab:unnamed-chunk-6}Access to extension services and CSA - (CRE) (Mali) \textit{(continued)}}\\
 \toprule
 Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
 \midrule
@@ -407,12 +487,12 @@ Robust standard errors in parentheses &  &  &  & \\
 \begingroup\fontsize{7}{9}\selectfont
 
 \begin{longtable}[t]{lrrrr}
-\caption{\label{tab:unnamed-chunk-6}Access to extension services and CSA - (CRE) (Nigeria)}\\
+\caption{\label{tab:unnamed-chunk-7}Access to extension services and CSA - (CRE) (Nigeria)}\\
 \toprule
 Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
 \midrule
 \endfirsthead
-\caption[]{\label{tab:unnamed-chunk-6}Access to extension services and CSA - (CRE) (Nigeria) \textit{(continued)}}\\
+\caption[]{\label{tab:unnamed-chunk-7}Access to extension services and CSA - (CRE) (Nigeria) \textit{(continued)}}\\
 \toprule
 Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
 \midrule
@@ -480,15 +560,159 @@ Robust standard errors in parentheses &  &  &  & \\
 
 \newpage
 
+\begin{table}[htbp]
+\caption{Coefficient stability and Unobserved selection}
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+                   &              & Private extension & Public extension & Joint Public-Private extension \\ \midrule
+Croprotation       & Beta         & 0.059          & 0.026            & 0.13                           \\
+                   & Delta        & -2.69             & -1.17            & 5.88                           \\
+                   & $R^2_{max}$      & 0.078             & 0.078            & 0.078                          \\
+                   & Observations & 8604              & 8604             & 8604                           \\ \midrule
+Improved seed      & Beta         & 0.11              & 0.086            & 0.18                           \\
+                   & Delta        & -2.66             & -0.51            & 1.95                           \\
+                   & $R^2_{max}$      & 0.075             & 0.075            & 0.075                          \\
+                   & Observations & 8604              & 8604             & 8604                           \\ \midrule
+Intercropping      & Beta         & 0.2               & 0.22             & 0.2                            \\
+                   & Delta        & -5.41             & -5.62            & -95.53                         \\
+                   & $R^2_{max}$      & 0.073             & 0.073            & 0.073                          \\
+                   & Observations & 8604              & 8604             & 8604                           \\ \midrule
+Organic fertilizer & Beta         & -0.027            & -0.012           & 0.012                          \\
+                   & Delta        & 2.35              & 3.65             & 1.39                           \\
+                   & $R^2_{max}$      & 0.11              & 0.11             & 0.11                           \\
+                   & Observations & 8604              & 8604             & 8604                           \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\pagebreak
+\newpage
+
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{Imbens_sensetivity.png}
+\caption{Treatment effects sensitivity (Bounds on the ATE)}
+\end{figure}
+
+\pagebreak
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/sm_breakdown.png}
+\caption{Regression sensitivity analysis (DMP 2022), breakdown}
+\end{figure}
+
+\pagebreak
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/combined_private.png}
+\caption{Selection and coefficent stability following the DMP 2022 (Private extension)}
+\caption*{Note: The figure shows the sensitivity analysis conducted following Diegert et al. (2022). It presents the bounds derived from the estimated coefficients in the full model for private extension including all control variables as specified in Diegert et al. (2022). The coefficient values (rxbar) indicate the magnitude of selection on unobservables relative to observables that would be required to nullify the results of the study. Different line patterns within the figure represent different assumptions of endogeneity between the included controls and the omitted variables (cbar). In particular, the dotted line represents the most stringent scenario, assuming full endogeneity. For example,  the point of intersection at 0.28 from crop rotation implies that the baseline results are statistically significant and different from zero, provided that the selection on the unobservables does not exceed 28\% of the selection on the observables. The interesection point for improved seed, intercropping and organic fertilizer are 0.42, 0.15, 0.295 respectivelly.}
+\end{figure}
+
+\pagebreak
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/combined_public.png}
+\caption{Selection and coefficent stability following the DMP 2022 (Public extension)}
+\caption*{Note: The figure shows the sensitivity analysis conducted following Diegert et al. (2022). It presents the bounds derived from the estimated coefficients in the full model for public extension including all control variables as specified in Diegert et al. (2022). The coefficient values (rxbar) indicate the magnitude of selection on unobservables relative to observables that would be required to nullify the results of the study. Different line patterns within the figure represent different assumptions of endogeneity between the included controls and the omitted variables (cbar). In particular, the dotted line represents the most stringent scenario, assuming full endogeneity. For example,  the point of intersection at 0.239 from crop rotation implies that the baseline results are statistically significant and different from zero, provided that the selection on the unobservables does not exceed 23.9\% of the selection on the observables. The interesection point for improved seed, intercropping and organic fertilizer are 0.51, 0.364, 0.535 respectivelly.}
+\end{figure}
+
+\pagebreak
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/combined_joint.png}
+\caption{Selection and coefficent stability following the DMP 2022 (Joint Public-private extension)}
+\caption*{Note: The figure shows the sensitivity analysis conducted following Diegert et al. (2022). It presents the bounds derived from the estimated coefficients in the full model for joint private-public extension including all control variables as specified in Diegert et al. (2022). The coefficient values (rxbar) indicate the magnitude of selection on unobservables relative to observables that would be required to nullify the results of the study. Different line patterns within the figure represent different assumptions of endogeneity between the included controls and the omitted variables (cbar). In particular, the dotted line represents the most stringent scenario, assuming full endogeneity. For example,  the point of intersection at 0.341 from crop rotation implies that the baseline results are statistically significant and different from zero, provided that the selection on the unobservables does not exceed 34.1\% of the selection on the observables. The interesection point for improved seed, intercropping and organic fertilizer are 0.61, 0.07, 0.127 respectivelly.}
+\end{figure}
+
+\pagebreak
+\newpage
+
 \begingroup\fontsize{7}{9}\selectfont
 
 \begin{longtable}[t]{lrrrr}
-\caption{\label{tab:unnamed-chunk-7}Attrition bias check}\\
+\caption{\label{tab:unnamed-chunk-9}Hausman Taylor estimation}\\
+\toprule
+Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
+\midrule
+\endfirsthead
+\caption[]{\label{tab:unnamed-chunk-9}Hausman Taylor estimation \textit{(continued)}}\\
+\toprule
+Variables & Crop rotation & Improved seeds & Intercropping & Organic fertilisers\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Private extension & 0.040 & \textbf{0.077***} & \textbf{0.165***} & -0.048\\
+ & (0.025) & (0.028) & (0.039) & (0.036)\\
+Public extension & 0.014 & 0.025 & \textbf{0.174***} & -0.012\\
+ & (0.022) & (0.021) & (0.025) & (0.016)\\
+Joint Public-private extension & \textbf{0.127***} & \textbf{0.177***} & \textbf{0.157***} & \textbf{0.035**}\\
+ & (0.019) & (0.021) & (0.022) & (0.016)\\
+Age of household head (years) & \textbf{-0.001**} & 0.000 & -0.001 & 0.000\\
+ & (0.000) & (0.000) & (0.001) & (0.000)\\
+Household size (number of persons) & 0.002 & \textbf{-0.002*} & \textbf{0.006***} & \textbf{-0.005***}\\
+ & (0.001) & (0.001) & (0.001) & (0.001)\\
+Distance to the nearest urban market (km) & \textbf{0.002***} & \textbf{-0.002***} & \textbf{-0.001*} & \textbf{0.002***}\\
+ & (0.000) & (0.001) & (0.001) & (0.001)\\
+Distance the nearest village market (km) & \textbf{-0.010***} & \textbf{0.005***} & \textbf{-0.006***} & \textbf{-0.003**}\\
+ & (0.002) & (0.001) & (0.002) & (0.001)\\
+Cooperative membership (dummy) & \textbf{0.040**} & \textbf{0.030*} & 0.014 & \textbf{0.030**}\\
+ & (0.016) & (0.016) & (0.021) & (0.013)\\
+Labor cost (USD/ha) & 0.000 & \textbf{0.001***} & -0.000 & \textbf{0.001***}\\
+ & (0.000) & (0.000) & (0.000) & (0.000)\\
+Groundnut area (ha) & \textbf{0.036***} & \textbf{0.019***} & \textbf{0.017***} & \textbf{0.045***}\\
+ & (0.005) & (0.005) & (0.006) & (0.005)\\
+Off-farm income (dummy) & 0.011 & \textbf{0.047*} & 0.002 & \textbf{-0.062***}\\
+ & (0.022) & (0.027) & (0.029) & (0.021)\\
+Dependency ratio & -0.001 & -0.002 & \textbf{0.016***} & \textbf{0.017***}\\
+ & (0.005) & (0.005) & (0.006) & (0.004)\\
+Clay soil (dummy) & 0.033 & -0.012 & 0.020 & 0.006\\
+ & (0.021) & (0.020) & (0.025) & (0.018)\\
+Sandy-clay soil (dummy) & 0.023 & -0.010 & 0.023 & \textbf{0.033**}\\
+ & (0.016) & (0.016) & (0.020) & (0.015)\\
+Silty soil (dummy) & \textbf{0.035*} & 0.002 & 0.022 & 0.012\\
+ & (0.020) & (0.020) & (0.025) & (0.018)\\
+Sex of household head (dummy, male=1) & 0.027 & \textbf{0.077***} & \textbf{-0.056*} & -0.006\\
+ & (0.025) & (0.023) & (0.031) & (0.022)\\
+Education level (Number of years) & -0.001 & \textbf{0.003**} & -0.003 & -0.001\\
+ & (0.002) & (0.002) & (0.002) & (0.001)\\
+Constant & -0.025 & \textbf{0.422***} & \textbf{0.293***} & \textbf{0.842***}\\
+ & (0.051) & (0.050) & (0.071) & (0.039)\\
+\midrule
+Observations & 8,604 & 8,604 & 8,604 & 8,604\\
+Number of id & 2,868 & 2,868 & 2,868 & 2,868\\
+Additional controls & Yes & Yes & Yes & Yes\\
+District FE & Yes & Yes & Yes & Yes\\
+Year FE & Yes & Yes & Yes & Yes\\
+\midrule
+Robust standard errors in parentheses &  &  &  & \\
+*** p<0.01, ** p<0.05, * p<0.1 &  &  &  & \\*
+\end{longtable}
+\endgroup{}
+
+\newpage
+
+\begingroup\fontsize{7}{9}\selectfont
+
+\begin{longtable}[t]{lrrrr}
+\caption{\label{tab:unnamed-chunk-10}Attrition bias check}\\
 \toprule
 Variables & Overall & Ghana & Mali & Nigeria\\
 \midrule
 \endfirsthead
-\caption[]{\label{tab:unnamed-chunk-7}Attrition bias check \textit{(continued)}}\\
+\caption[]{\label{tab:unnamed-chunk-10}Attrition bias check \textit{(continued)}}\\
 \toprule
 Variables & Overall & Ghana & Mali & Nigeria\\
 \midrule

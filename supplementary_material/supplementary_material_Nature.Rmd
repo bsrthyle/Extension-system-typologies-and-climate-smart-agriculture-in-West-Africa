@@ -1,5 +1,5 @@
 ---
-title: "Different extension system typologies promote climate-smart agriculture in West Africa"
+title: "Farmers advised by both public and private extension systems are more likely to adopt climate-smart agriculture in West Africa"
 subtitle: "Supplementary Material"
 author: ''
 date: "Last updated: `r Sys.time()`"
@@ -22,12 +22,15 @@ header-includes:
    - \usepackage[T1]{fontenc}
    - \usepackage{graphicx}
    - \usepackage{booktabs,threeparttablex}
+   - \usepackage{multirow}
+   - \usepackage{caption}
    - \usepackage{pdflscape}
    - \usepackage{fvextra}
    - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
    - \usepackage{lmodern}
    - \usepackage{nimbusmono}
    - \renewcommand{\thetable}{SM\arabic{table}}
+   - \renewcommand{\thefigure}{SM\arabic{figure}}
    - \setlength{\cfttabnumwidth}{1cm}
    - \usepackage{fouriernc}
 
@@ -50,8 +53,58 @@ knitr::opts_chunk$set(
 options(width = 100)
 # load the required libraries
 
+# load fonts
+extrafont::loadfonts(device = "win")
+my_font <- "Frutiger"
+Tyrell = c(
+    "#068105", ## darkgreen
+    "#F7DC27", ## yellow
+    "#808000", ## olive
+    "#AB681B", ## brown
+    "#F9FE76", ## lightgrass-green
+    "#8DA080", ## grey-green
+    "#717497", ## blue-grey
+    "#98FB98", ## pale green
+    "#3CB371"  ## medium sea green
+  )
 
+my_platte_1 <- c(
+'#167288',
+'#8cdaec',
+'#b45248',
+'#d48c84',
+'#a89a49',
+'#d6cfa2',
+'#3cb464',
+'#9bddb1',
+'#643c6a',
+'#836394'
+)
 
+my_platte_2 <- c(
+"#c381a7",
+"#caf358",
+"#514369",
+"#2a9c75",
+"#a0cd90",
+"#60a55e",
+"#ddddac",
+"#3e475d",
+"#346233",
+"#fa921a",
+"#800013",
+"#eeeeee",
+"#7bc142",
+"#454545",
+"#457db3",
+"#07529a",
+"#0065ff",
+"#59947f",
+"#fdbe5a",
+"#dbe8ff",
+"#95baff",
+"#305596"
+)
 # load the required libraries
 pacman::p_load(
 jsonlite,
@@ -77,6 +130,7 @@ tidyverse
 
 \newpage
 \listoftables
+\listoffigures
 \newpage
 
 ```{r, echo=FALSE}
@@ -129,19 +183,30 @@ bold_significance <- function(df){
 }
 ```
 
+\begin{table}[ht]
+\centering
+\caption{Sample Size by Country and Year}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Country & 2017 & 2018 & 2019 \\ 
+\midrule
+Ghana   &  900 &  540 &  506 \\
+Mali    & 1350 &  900 &  840 \\
+Nigeria & 2500 & 1600 & 1530 \\
+\bottomrule
+\end{tabular}
 
-
-\begin{table}[]
-\caption{Descriptive plot: Distribution of extension systems by year}
-\label{tab:my-table2}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{l}
-\begin{minipage}{\textwidth}
-      \includegraphics[width=\textwidth]{descriptive_plot_interest_3.png}
-    \end{minipage}
-\end{tabular}%
-}
+\label{tab:sample_size}
 \end{table}
+
+
+
+\begin{figure}[!htb]
+  \centering
+
+      \includegraphics[width=\textwidth]{descriptive_plot_interest_3.png}
+  \caption{Descriptive plot: Distribution of extension systems by year}
+\end{figure}
 
 \clearpage
 
@@ -190,6 +255,63 @@ print(".")
 \pagebreak
 
 \clearpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{"figures/map_private.png"}
+\caption{Private extension system and CSA practises  by region (2019)}
+\caption*{Note: The map illustrates the CSA practices in Ghana, Mali and Nigeria. The shaded areas on the map indicate the percentage of households adopting these CSA practices, with varying intensities of shade representing different levels of adoption: the lightest shade denotes 0-25\% adoption, followed by a light shade for 26-50\%, a medium shade for 51-75\%, and a dark shade for 76-100\% of adoption. Overlaid on these shaded regions are points of varying sizes, each representing the extent of access to private extension services in different regions of the country. The size of these points corresponds to the percentage of households with access to these services: the smallest points indicate 0-5\% access, increasing in size from 6-10\%, 11-15\%, 16-20\%, 21 -25\% , 25-30\% and the largest points for more than 30\% access.}
+\label{fig:map_1}
+\end{figure}
+
+\newpage
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{"figures/map_public.png"}
+\caption{Public extension system and CSA practises  by region (2019)}
+\caption*{Note: The map illustrates the CSA practices in Ghana, Mali and Nigeria. The shaded areas on the map indicate the percentage of households adopting these CSA practices, with varying intensities of shade representing different levels of adoption: the lightest shade denotes 0-25\% adoption, followed by a light shade for 26-50\%, a medium shade for 51-75\%, and a dark shade for 76-100\% of adoption. Overlaid on these shaded regions are points of varying sizes, each representing the extent of access to public extension services in different regions of the country. The size of these points corresponds to the percentage of households with access to these services: the smallest points indicate 0\% access, increasing to 0-20\%, 20-40\%, and the largest points for more than 40\% access.}
+\label{fig:map_1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{"figures/map_joint.png"}
+\caption{Note: Joint Public-private extension system and CSA practises  by region (2019)}
+\caption*{The map illustrates the CSA practices in Ghana, Mali and Nigeria. The shaded areas on the map indicate the percentage of households adopting these CSA practices, with varying intensities of shade representing different levels of adoption: the lightest shade denotes 0-25\% adoption, followed by a light shade for 26-50\%, a medium shade for 51-75\%, and a dark shade for 76-100\% of adoption. Overlaid on these shaded regions are points of varying sizes, each representing the extent of access to joint public-private extension services in different regions of the country. The size of these points corresponds to the percentage of households with access to these services: the smallest points indicate 0\% access, increasing to 0-20\%, 20-40\%,40-60\% and the largest points for more than 60\% access.}
+\label{fig:map_1}
+\end{figure}
+
+
+\clearpage
+
+```{r}
+
+df <- list_of_tables$si_mvp1_1%>%
+  mutate(
+    LABELS = case_when(
+      LABELS=="" ~ VARIABLES,
+      TRUE ~ LABELS
+    )
+  )%>%
+  select(-VARIABLES)%>%
+  rename(Variables = LABELS)%>%
+  select(-c(starts_with("ata")))%>%
+  bold_significance()
+
+df[1,1] <- "Private extension"
+df[3,1] <- "Public extension"
+df[5,1] <- "Joint Public-private extension"
+
+
+kableExtra::kbl(df, longtable = T, booktabs = T,linesep = "", escape=F, col.names = c("Variables", "Crop rotation", "Improved seeds",  "Intercropping", "Organic fertilisers"), align="lrrrr", caption = "Access to extension services and CSA - (CRE) (Without Controls)")%>%
+#kableExtra::landscape()%>%
+#add_header_above(c(" ", "(1)" = 2, "(2)" = 2, "(3)" = 2, "(4)" = 2))  %>%
+kable_styling(font_size = 7, latex_options = c("repeat_header"))%>%
+  row_spec(8, hline_after = T)%>%
+  row_spec(12, hline_after = T)
+```
+
+\newpage
 
 ```{r}
 
@@ -306,6 +428,176 @@ kable_styling(font_size = 7, latex_options = c("repeat_header"))%>%
   row_spec(50, hline_after = T)
 ```
 
+
+\newpage
+
+
+
+\begin{table}[htbp]
+\caption{Coefficient stability and Unobserved selection}
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+                   &              & Private extension & Public extension & Joint Public-Private extension \\ \midrule
+Croprotation       & Beta         & 0.059          & 0.026            & 0.13                           \\
+                   & Delta        & -2.69             & -1.17            & 5.88                           \\
+                   & $R^2_{max}$      & 0.078             & 0.078            & 0.078                          \\
+                   & Observations & 8604              & 8604             & 8604                           \\ \midrule
+Improved seed      & Beta         & 0.11              & 0.086            & 0.18                           \\
+                   & Delta        & -2.66             & -0.51            & 1.95                           \\
+                   & $R^2_{max}$      & 0.075             & 0.075            & 0.075                          \\
+                   & Observations & 8604              & 8604             & 8604                           \\ \midrule
+Intercropping      & Beta         & 0.2               & 0.22             & 0.2                            \\
+                   & Delta        & -5.41             & -5.62            & -95.53                         \\
+                   & $R^2_{max}$      & 0.073             & 0.073            & 0.073                          \\
+                   & Observations & 8604              & 8604             & 8604                           \\ \midrule
+Organic fertilizer & Beta         & -0.027            & -0.012           & 0.012                          \\
+                   & Delta        & 2.35              & 3.65             & 1.39                           \\
+                   & $R^2_{max}$      & 0.11              & 0.11             & 0.11                           \\
+                   & Observations & 8604              & 8604             & 8604                           \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\pagebreak
+\newpage
+
+
+```{r, eval=FALSE}
+imbens_r <- read.csv("Imbens_sensetivity.csv")
+df <- imbens_r%>%
+  pivot_longer(cols = contains("exten"))%>%
+  # separate name into two columns e.g cr_exten_1 into cr and exten_1
+  separate(name, into = c("var", "delet", "exten"), sep = "_")%>%
+  # separate value into two columns e.g 0.1, 0.2 int 0.1 and 0.2
+  separate(value, into = c("lower", "upper"), sep = ",")%>%
+  mutate(
+    exten = case_when(
+      exten=="2" ~ "Private extension",
+      exten=="3" ~ "Public extension",
+      exten=="4" ~ "Joint Public-private extension",
+      TRUE ~ NA_character_
+    ),
+    var = case_when(
+      var=="cr" ~ "Crop rotation",
+      var=="is" ~ "Improved seeds",
+      var=="ic" ~ "Intercropping",
+      var=="of" ~ "Organic fertilisers",
+      TRUE ~ var
+    )
+  )%>%
+  select(-delet)%>%
+  mutate(
+    lower = as.numeric(lower),
+    upper = as.numeric(upper)
+  )%>%
+  mutate(exten = factor(exten, levels = c("Private extension", "Public extension", "Joint Public-private extension")), var = factor(var, levels = c("Crop rotation", "Improved seeds", "Intercropping", "Organic fertilisers")))
+
+# plot x = c y= lower and upper facet by var and exten
+pp <- ggplot(df, aes(c)) +
+  geom_line(aes(y=upper, color="upper")) +
+  geom_line(aes(y=lower, color ="lower")) +
+  # facet by var and exten
+  #horizontal line at 0
+  geom_hline(yintercept = 0) +
+  facet_grid(var~exten, scales = "free") +
+  scale_color_manual(name = "95% Confidence Interval", values = c("upper" = "#004e98", "lower" = "#ffcb69")) +
+  scale_x_continuous(expand = c(0, 0)) +
+  theme_few(base_family = my_font) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.3), legend.position = "none", strip.background = element_rect(fill = '#22333b', color = "white"), strip.text = element_text(color="white")) +
+  labs(x = "c", y = "ATE")
+pp
+# save plot
+ggsave("Imbens_sensetivity.png", pp, width = 25, height = 20, units = "cm", dpi = 300)
+
+
+```
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{Imbens_sensetivity.png}
+\caption{Treatment effects sensitivity (Bounds on the ATE)}
+\end{figure}
+
+
+\pagebreak
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/sm_breakdown.png}
+\caption{Regression sensitivity analysis (DMP 2022), breakdown}
+\end{figure}
+
+
+\pagebreak
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/combined_private.png}
+\caption{Selection and coefficent stability following the DMP 2022 (Private extension)}
+\caption*{Note: The figure shows the sensitivity analysis conducted following Diegert et al. (2022). It presents the bounds derived from the estimated coefficients in the full model for private extension including all control variables as specified in Diegert et al. (2022). The coefficient values (rxbar) indicate the magnitude of selection on unobservables relative to observables that would be required to nullify the results of the study. Different line patterns within the figure represent different assumptions of endogeneity between the included controls and the omitted variables (cbar). In particular, the dotted line represents the most stringent scenario, assuming full endogeneity. For example,  the point of intersection at 0.28 from crop rotation implies that the baseline results are statistically significant and different from zero, provided that the selection on the unobservables does not exceed 28\% of the selection on the observables. The interesection point for improved seed, intercropping and organic fertilizer are 0.42, 0.15, 0.295 respectivelly.}
+\end{figure}
+
+
+\pagebreak
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/combined_public.png}
+\caption{Selection and coefficent stability following the DMP 2022 (Public extension)}
+\caption*{Note: The figure shows the sensitivity analysis conducted following Diegert et al. (2022). It presents the bounds derived from the estimated coefficients in the full model for public extension including all control variables as specified in Diegert et al. (2022). The coefficient values (rxbar) indicate the magnitude of selection on unobservables relative to observables that would be required to nullify the results of the study. Different line patterns within the figure represent different assumptions of endogeneity between the included controls and the omitted variables (cbar). In particular, the dotted line represents the most stringent scenario, assuming full endogeneity. For example,  the point of intersection at 0.239 from crop rotation implies that the baseline results are statistically significant and different from zero, provided that the selection on the unobservables does not exceed 23.9\% of the selection on the observables. The interesection point for improved seed, intercropping and organic fertilizer are 0.51, 0.364, 0.535 respectivelly.}
+\end{figure}
+
+
+\pagebreak
+\newpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/combined_joint.png}
+\caption{Selection and coefficent stability following the DMP 2022 (Joint Public-private extension)}
+\caption*{Note: The figure shows the sensitivity analysis conducted following Diegert et al. (2022). It presents the bounds derived from the estimated coefficients in the full model for joint private-public extension including all control variables as specified in Diegert et al. (2022). The coefficient values (rxbar) indicate the magnitude of selection on unobservables relative to observables that would be required to nullify the results of the study. Different line patterns within the figure represent different assumptions of endogeneity between the included controls and the omitted variables (cbar). In particular, the dotted line represents the most stringent scenario, assuming full endogeneity. For example,  the point of intersection at 0.341 from crop rotation implies that the baseline results are statistically significant and different from zero, provided that the selection on the unobservables does not exceed 34.1\% of the selection on the observables. The interesection point for improved seed, intercropping and organic fertilizer are 0.61, 0.07, 0.127 respectivelly.}
+\end{figure}
+
+
+\pagebreak
+\newpage
+
+```{r}
+df <- list_of_tables$Hausman%>%
+  mutate(
+    LABELS = case_when(
+      LABELS=="" ~ VARIABLES,
+      TRUE ~ LABELS
+    )
+  )%>%
+  select(-VARIABLES)%>%
+  rename(Variables = LABELS)%>%
+  bold_significance()%>%
+  select(!starts_with("/"))%>%
+  mutate(
+    Variables = case_when(
+      Variables=="exten==1" ~ "Private extension",
+      Variables=="exten==2" ~ "Public extension",
+      Variables=="exten==3" ~ "Joint Public-private extension",
+      TRUE ~ Variables
+    )
+  )%>%
+  # make Private extension, Public extension and Joint Public-private extension  the first three rows using slice
+  slice(25:30,1:24, 31:43)
+  
+  
+kableExtra::kbl(df, longtable = T, booktabs = T, linesep = "", escape=F, col.names = c("Variables", "Crop rotation", "Improved seeds",  "Intercropping", "Organic fertilisers"), align="lrrrr", caption = "Hausman Taylor estimation")%>%
+#kableExtra::landscape()%>%
+#add_header_above(c(" ", "(1)" = 2, "(2)" = 2, "(3)" = 2, "(4)" = 2))  %>%
+kable_styling(font_size = 7, latex_options = c("repeat_header"))%>%
+  row_spec(36, hline_after = T)%>%
+  row_spec(41, hline_after = T)
+  
+  
+```
 
 \newpage
 

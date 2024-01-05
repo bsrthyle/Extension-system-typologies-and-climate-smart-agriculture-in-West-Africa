@@ -3,12 +3,13 @@
 *===================================================================================================================================================
 * Project : 	USPCALING GROUNDNUT PRODUCTIVITY
 * Program:		LEARNING (TRAINING) AND GROUNDNUT PRODUCTIVITY IN GHANA, MALI AND NIGERIA
-* ==================================================================================================================================================
+* Version 4.0 
+* data: 04-12-2022  ==================================================================================================================================================
  
  *This was perfored in STATA 17
  
 clear all
-set maxvar 30000
+set maxvar 3000
 set more off
 
 
@@ -25,7 +26,7 @@ local path "../"
 
 
 ** Loading the data**
-use "data_for_analysis", clear
+use "Groundnut", clear
 
 ****************************************************************************************************************************************************
 *DATA CLEANING AND PREPARATION
@@ -34,7 +35,8 @@ foreach var of varlist typsoil1 typsoil2 typsoil3 nbrhoejour {
 replace `var'=0 if `var' ==.
 }
 
-
+gen prod_value = gprod* uprice
+gen sales_value = qsale* uprice
 
 
  foreach v of var country region district villag {
@@ -117,7 +119,15 @@ egen off_farmbar = mean(off_farm), by (id)
 egen dratiobar = mean(dratio), by (id)
 egen adoptbar = mean(adopt), by (id)
 
+***Generating ordered extension variable*** I WILL CHECK THIS BEFORE RUNNING 
+gen     exten = 0 if extension_access==0
+replace exten=1 if exten==.& extension_priv==1 & extension_pub==0 & extension_both==0
+replace exten=2 if exten==.& extension_pub==1 & extension_priv==0 & extension_both==0
+replace exten=3 if exten==.& extension_both==1
 
+label define extension 0 "No extension" 1 "Private extension" 2 "Public extension" 3 "Both Private and Public"
+label values exten extension
+ta exten, gen(exten)
 **************************************************************************************************************************************************
 *****GLOBAL VARIABLES*******
 
@@ -125,11 +135,15 @@ global inputs adopt organic_fert inorganic_fert fertilisers pesticide credit_cas
 
 global practices intercropping crop_rotation adopt organic_fert
 
-global interest extension_access
+global interest i.exten
+
+global interest2 i.exten#training
 
 global xlist age sexe nbschool hhsize dmurbain dmvillage association clabor_ha gsize off_farm dratio typsoil1 typsoil2 typsoil3
 
 global tlist agebar nbschoolbar hhsizebar  gsizebar off_farmbar dratiobar
+
+global countries Nigeria Ghana Mali
 
 /*VAriable Labels for SM design*/
 *************************************************************************************************************************************
@@ -170,499 +184,317 @@ label var extension_pub "Public extension (dummy)"
 label var training "Training (dummy)"
 label var extension_both "Public-private extension (dummy)"
 
-***************************************************************************************************************************************************
-**Table 1: Summary Statistics**
-
-
-graph hbar (mean) adopt adopt fertilisers pesticide credit_cash intercropping crop_rotation, showyvars legend(off) scheme(economist) xsize(20) ysize(15) graphregion(color(white)) bgcolor(white)
-
-
-graph bar (mean) adopt adopt fertilisers pesticide credit_cash intercropping crop_rotation, over(country) showyvars legend(off) scheme(economist) xsize(20) ysize(15) graphregion(color(white)) bgcolor(white)
-
-/*=========Kdensity of gprod gyield*/ 
-		
-****COOPERATIVE MEMBERSHIP****
-tabstat gyield gprod sellers qsale sales_value prod_value, by(adopt)
-
-twoway 	(kdensity gyield if association==1, lwidth(medium) lcolor(black) lpattern(solid)) /// 
-		(kdensity gyield if association==0, lwidth(medium) lcolor(red) lpattern(dash)), ///
-		ytitle("Density") xtitle("Groundnut yield (kg/ha)") ///
-		xline(587.74, lpattern(solid) lwidth(thin) lcolor(black)) ///
-		text(0 `=587.74' "Non-cooperative members", color(black) j(left) size(vsmall) place(nw) orient(vertical)) /// 
-		xline(918.86, lpattern(solid) lwidth(thin) lcolor(red)) ///
-		text(0 `=918.86' "Cooperative members", color(red) j(left) size(vsmall) place(nw) orient(vertical)) ///
-		legend (label(1 "Non-cooperative members") label(2 "Cooperative members")) saving(Yield, replace)
-		
-		graph export "Yield.png", as(png) replace
-
-twoway 	(kdensity gprod if association==1 & gprod<5000, lwidth(medium) lcolor(black) lpattern(solid)) /// 
-		(kdensity gprod if association==0 & gprod<5000, lwidth(medium) lcolor(red) lpattern(dash)), ///
-		ytitle("Density") xtitle("Groundnut production (kg)") ///
-		xline(880.43, lpattern(solid) lwidth(thin) lcolor(black)) ///
-		text(0 `=880.43' "Non-cooperative members", color(black) j(left) size(vsmall) place(nw) orient(vertical)) /// 
-		xline(1608.06, lpattern(solid) lwidth(thin) lcolor(red)) ///
-		text(0 `=1608.06' "Cooperative members", color(red) j(left) size(vsmall) place(nw) orient(vertical)) ///
-		legend (label(1 "Non-cooperative members") label(2 "Cooperative members")) saving(Prod, replace)
-		
-		graph export "Prod.png", as(png) replace
-
-	gr combine Yield.gph Prod.gph , col(2) iscale(.5) commonscheme
- 
-graph export "outcomes.png", as(png) replace	
-		
-		
-****EXTENSION ACCESS****
-twoway 	(kdensity gyield if extension==1, lwidth(medium) lcolor(black) lpattern(solid)) /// 
-		(kdensity gyield if extension==0, lwidth(medium) lcolor(red) lpattern(dash)), ///
-		ytitle("Density") xtitle("Groundnut yield (kg/ha)") ///
-		xline(587.74, lpattern(solid) lwidth(thin) lcolor(black)) ///
-		text(0 `=587.74' "Non-cooperative members", color(black) j(left) size(vsmall) place(nw) orient(vertical)) /// 
-		xline(918.86, lpattern(solid) lwidth(thin) lcolor(red)) ///
-		text(0 `=918.86' "Cooperative members", color(red) j(left) size(vsmall) place(nw) orient(vertical)) ///
-		legend (label(1 "Non-cooperative members") label(2 "Cooperative members")) saving(Yield2, replace)
-		
-		graph export "Yield.png", as(png) replace
-
-twoway 	(kdensity gprod if association==1 & gprod<5000, lwidth(medium) lcolor(black) lpattern(solid)) /// 
-		(kdensity gprod if association==0 & gprod<5000, lwidth(medium) lcolor(red) lpattern(dash)), ///
-		ytitle("Density") xtitle("Groundnut production (kg)") ///
-		xline(880.43, lpattern(solid) lwidth(thin) lcolor(black)) ///
-		text(0 `=880.43' "Non-cooperative members", color(black) j(left) size(vsmall) place(nw) orient(vertical)) /// 
-		xline(1608.06, lpattern(solid) lwidth(thin) lcolor(red)) ///
-		text(0 `=1608.06' "Cooperative members", color(red) j(left) size(vsmall) place(nw) orient(vertical)) ///
-		legend (label(1 "Non-cooperative members") label(2 "Cooperative members")) saving(Prod2, replace)
-		
-		graph export "Prod2.png", as(png) replace
-	
-
-gr combine Yield2.gph Prod.gph , col(2) iscale(.5) commonscheme
- 
-graph export "outcomes2.png", as(png) replace
-		
-
-/************Descriptive stats */
-
-eststo clear
-by year association, sort: eststo: quietly estpost sum $xlist assoc
-esttab using sum_stat.csv, replace cell(mean(fmt(2)) sd(par fmt(2))) p(2) label nodepvar
-
-eststo clear
-by association, sort: eststo: quietly estpost sum $xlist assoc
-esttab using sum_stat2.csv, replace cell(mean(fmt(2)) sd(par fmt(2))) p(2) label nodepvar
-
-
-
+************************************************************************************************************************************
 
 
 *****PANEL REGRESSIONS******
 xtset id year
 	
-***Result2: Extension impacts on practices***	
+*** MVProbit Estimation	
+*mvprobit (crop_rotation = $interest $xlist $tlist) (adopt = $interest $xlist $tlist)(intercropping = $interest $xlist $tlist)(organic_fert = $interest $xlist $tlist), difficult draws (100) vce(cluster district)
 
-xtreg intercropping $interest $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result2.tex, replace ctitle (Intercropping) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_access) ctitle (Intercropping (DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab replace
-	
-	
-xtreg intercropping $interest $xlist $tlist i.year, re r
-	outreg2 using Result2.tex, append ctitle (Intercropping) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_access) ctitle (Intercropping)  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation $interest $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result2.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_access) ctitle (Crop Rotation (DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation $interest $xlist $tlist i.year, re r
-	outreg2 using Result2.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_access) ctitle (Crop Rotation) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
+* Corrolated Randome Effect (CRE) model
+* All countries
 
-xtreg adopt $interest $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result2.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_access) ctitle (Improved Seeds (DFE))  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg adopt $interest $xlist $tlist i.year, re r
-	outreg2 using Result2.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_access) ctitle (Improved Seeds) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-xtreg organic_fert $interest $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result2.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_access) ctitle (Organic Fertilisers (DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg organic_fert $interest $xlist $tlist i.year, re r
-	outreg2 using Result2.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_access) ctitle (Organic Fertilisers) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
+cmp (crop_rotation = $interest $xlist $tlist  i.year i. district_1) (adopt = $interest $xlist $tlist i.year i. district_1)(intercropping = $interest $xlist $tlist i.year i. district_1)(organic_fert = $interest $xlist $tlist i.year i. district_1),indicators("$cmp_probit" "$cmp_probit" "$cmp_probit" $cmp_probit) nolrtest difficult nonrtolerance vce(cluster district)
+outreg2 using si_mvp1.tex, keep($interest $xlist $tlist) lab  addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) replace
 
-***Result3: Public and private extension on inputs***
+margins, dydx(exten) predict(eq(#1) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels replace
 
-xtreg intercropping extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result3.tex, replace ctitle (Intercropping) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub) ctitle (Intercropping(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg intercropping extension_priv extension_pub $xlist $tlist i.year, re r
-	outreg2 using Result3.tex, append ctitle (Intercropping) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub) ctitle (Intercropping)  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result3.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub) ctitle (Crop Rotation(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation extension_priv extension_pub $xlist $tlist i.year, re r
-	outreg2 using Result3.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub) ctitle (Crop Rotation) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
 
-xtreg adopt extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result3.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub) ctitle (Improved Seeds(DFE))  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg adopt extension_priv extension_pub $xlist $tlist i.year, re r
-	outreg2 using Result3.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub) ctitle (Improved Seeds) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-xtreg organic_fert extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result3.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub) ctitle (Organic Fertilisers(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg organic_fert extension_priv extension_pub $xlist $tlist i.year, re r
-	outreg2 using Result3.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub) ctitle (Organic Fertilisers) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
+margins, dydx(exten) predict(eq(#2) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
 
-***Result6: Public-private extension on inputs***
+
+margins, dydx(exten) predict(eq(#3) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+margins, dydx(exten) predict(eq(#4) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+* without control 
+cmp (crop_rotation = $interest i.year) (adopt = $interest i.year )(intercropping = $interest  i.year )(organic_fert = $interest i.year ),indicators("$cmp_probit" "$cmp_probit" "$cmp_probit" $cmp_probit) nolrtest difficult nonrtolerance vce(cluster district)
+outreg2 using si_mvp1_1.tex, keep($interest $xlist $tlist) lab  addtext(Additional controls, No, District FE, No, Year FE, Yes) replace
+
+
+* GHANA
+
+cmp (crop_rotation = $interest $xlist $tlist  i.year i. district_1) (adopt = $interest $xlist $tlist i.year i. district_1)(intercropping = $interest $xlist $tlist i.year i. district_1)(organic_fert = $interest $xlist $tlist i.year i. district_1) if country=="Ghana",indicators("$cmp_probit" "$cmp_probit" "$cmp_probit" $cmp_probit) nolrtest difficult nonrtolerance vce(cluster district)
+outreg2 using si_mvp2.tex, keep($interest $xlist $tlist) lab  addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) replace
+
+margins, dydx(exten) predict(eq(#1) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+margins, dydx(exten) predict(eq(#2) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+margins, dydx(exten) predict(eq(#3) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+margins, dydx(exten) predict(eq(#4) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
 
 
 
-xtreg intercropping extension_both $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result4.tex, replace ctitle (Intercropping) dec(3) lab tex(frag pr land) keep(extension_both $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_both) ctitle (Intercropping(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg intercropping extension_both $xlist $tlist i.year, re r
-	outreg2 using Result4.tex, append ctitle (Intercropping) dec(3) lab tex(frag pr land) keep(extension_both $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_both) ctitle (Intercropping)  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation extension_both $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result4.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep(extension_both $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_both) ctitle (Crop Rotation(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation extension_both $xlist $tlist i.year, re r
-	outreg2 using Result4.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep(extension_both $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_both) ctitle (Crop Rotation) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
+* MALI
+cmp (crop_rotation = $interest $xlist $tlist  i.year i. district_1) (adopt = $interest $xlist $tlist i.year i. district_1)(intercropping = $interest $xlist $tlist i.year i. district_1)(organic_fert = $interest $xlist $tlist i.year i. district_1) if country=="Mali",indicators("$cmp_probit" "$cmp_probit" "$cmp_probit" $cmp_probit) nolrtest difficult nonrtolerance vce(cluster district)
+outreg2 using si_mvp3.tex, keep($interest $xlist $tlist) lab  addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) replace
+
+margins, dydx(exten) predict(eq(#1) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+margins, dydx(exten) predict(eq(#2) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+margins, dydx(exten) predict(eq(#3) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+margins, dydx(exten) predict(eq(#4) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
 	
 
-xtreg adopt extension_both $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result4.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep(extension_both $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_both) ctitle (Improved Seeds(DFE))  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg adopt extension_both $xlist $tlist i.year, re r
-	outreg2 using Result4.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep(extension_both $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_both) ctitle (Improved Seeds) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-xtreg organic_fert extension_both $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result4.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep(extension_both $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_both) ctitle (Organic Fertilisers(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg organic_fert extension_both $xlist $tlist i.year, re r
-	outreg2 using Result4.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep(extension_both $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (extension_both) ctitle (Organic Fertilisers) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-*****Result7: Training and inputs***
+* NIGERIA
 
-xtreg intercropping training $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result5.tex, replace ctitle (Intercropping) dec(3) lab tex(frag pr land) keep(training $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (training) ctitle (Intercropping(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg intercropping training $xlist $tlist i.year, re r
-	outreg2 using Result5.tex, append ctitle (Intercropping) dec(3) lab tex(frag pr land) keep(training $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (training) ctitle (Intercropping)  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation training $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result5.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep(training $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (training) ctitle (Crop Rotation(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation training $xlist $tlist i.year, re r
-	outreg2 using Result5.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep(training $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (training) ctitle (Crop Rotation(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
+cmp (crop_rotation = $interest $xlist $tlist  i.year i. district_1) (adopt = $interest $xlist $tlist i.year i. district_1)(intercropping = $interest $xlist $tlist i.year i. district_1)(organic_fert = $interest $xlist $tlist i.year i. district_1) if country=="Nigeria",indicators("$cmp_probit" "$cmp_probit" "$cmp_probit" $cmp_probit) nolrtest difficult nonrtolerance vce(cluster district)
+outreg2 using si_mvp4.tex, keep($interest $xlist $tlist) lab  addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) replace
 
-xtreg adopt training $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result5.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep(training $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (training) ctitle (Improved Seeds(DFE))  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg adopt training $xlist $tlist i.year, re r
-	outreg2 using Result5.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep(training $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (training) ctitle (Improved Seeds) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-xtreg organic_fert training $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result5.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep(training $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (training) ctitle (Organic Fertilisers(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg organic_fert training $xlist $tlist i.year, re r
-	outreg2 using Result5.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep(training $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (training) ctitle (Organic Fertilisers) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-***Results9: Interaction between training and farm practices
+margins, dydx(exten) predict(eq(#1) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
 
-xtreg intercropping extension_access#training $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result6.tex, replace ctitle (Intercropping) dec(3) lab tex(frag pr land) keep(1.extension_access#1.training $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (1.extension_access#1.training) ctitle (Intercropping(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg intercropping extension_access#training $xlist $tlist i.year, re r
-	outreg2 using Result6.tex, append ctitle (Intercropping) dec(3) lab tex(frag pr land) keep(1.extension_access#1.training $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (1.extension_access#1.training) ctitle (Intercropping)  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation extension_access#training $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result6.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep(1.extension_access#1.training $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (1.extension_access#1.training) ctitle (Crop Rotation(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg crop_rotation extension_access#training $xlist $tlist i.year, re r
-	outreg2 using Result6.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep(1.extension_access#1.training $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (1.extension_access#1.training) ctitle (Crop Rotation) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
 
-xtreg adopt extension_access#training $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result6.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep(1.extension_access#1.training $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (1.extension_access#1.training) ctitle (Improved Seeds(DFE))  long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg adopt extension_access#training $xlist $tlist i.year, re r
-	outreg2 using Result6.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep(1.extension_access#1.training $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (1.extension_access#1.training) ctitle (Improved Seeds) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-xtreg organic_fert extension_access#training $xlist $tlist i.year i. district_1, re r
-	outreg2 using Result6.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep(1.extension_access#1.training $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (1.extension_access#1.training) ctitle (Organic Fertilisers(DFE)) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
-	
-	
-xtreg organic_fert extension_access#training $xlist $tlist i.year, re r
-	outreg2 using Result6.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep(1.extension_access#1.training $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	outreg2 using Result1_2, sideway stats(coef se aster  ci_low ci_high ) keep (1.extension_access#1.training) ctitle (Organic Fertilisers) long  nocons nor2 noobs noni  nonotes noparen dec(3) quote lab append
+margins, dydx(exten) predict(eq(#2) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
 
-	
 
-***ROBUSTNESS CHECKS
+margins, dydx(exten) predict(eq(#3) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+margins, dydx(exten) predict(eq(#4) pr) force noestimcheck
+outreg using marginal_effects.txt, stat(b_dfdx se_dfdx)  varlabels merge
+
+
+
+/******************Robustness check************************/
+
+
+***OSTER BOUNDS***
+ssc install psacalc
+
+/*Crop rotation*/
+xtreg crop_rotation exten2 exten3 exten4 $xlist $tlist, fe vce(cluster id)
+psacalc beta exten2, rmax(0.078)
+psacalc beta exten3, rmax(0.078)
+psacalc beta exten4, rmax(0.078)
+
+psacalc delta exten2, rmax(0.078)
+psacalc delta exten3, rmax(0.078)
+psacalc delta exten4, rmax(0.078)
+
+
+/*Adoption*/
+xtreg adopt exten2 exten3 exten4 $xlist $tlist, fe vce(cluster id)
+psacalc beta exten2, rmax(0.075)
+psacalc beta exten3, rmax(0.075)
+psacalc beta exten4, rmax(0.075)
+
+psacalc delta exten2, rmax(0.075)
+psacalc delta exten3, rmax(0.075)
+psacalc delta exten4, rmax(0.075)
+
+
+
+/*Intercropping*/
+xtreg intercropping exten2 exten3 exten4 $xlist $tlist, fe vce(cluster id)
+psacalc beta exten2, rmax(0.073)
+psacalc beta exten3, rmax(0.073)
+psacalc beta exten4, rmax(0.073)
+
+psacalc delta exten2, rmax(0.073)
+psacalc delta exten3, rmax(0.073)
+psacalc delta exten4, rmax(0.073)
+
+
+/*Organic fertilizer*/
+xtreg organic_fert exten2 exten3 exten4 $xlist $tlist, fe vce(cluster id)
+psacalc beta exten2, rmax(0.11)
+psacalc beta exten3, rmax(0.11)
+psacalc beta exten4, rmax(0.11)
+
+psacalc delta exten2, rmax(0.11)
+psacalc delta exten3, rmax(0.11)
+psacalc delta exten4, rmax(0.11)
 
 
 
 
+*** Hausman Taylor estimation***
 
-***Result10: Extension impacts on practices (Household FE Estimator)***	
+xi: xthtaylor crop_rotation $interest $xlist i.year i.district_1  , endog($interest) vce(r)
+xi: outreg2 using Hausman.tex, replace ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
 
-xtreg intercropping $interest $xlist $tlist i.year i. district_1, fe r
-	outreg2 using Result_rc_1.tex, replace ctitle (Intercropping) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
+xi: xthtaylor adopt $interest $xlist i.year i.district_1  , endog($interest) vce(r)
+xi:outreg2 using Hausman.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
 	
-	
-xtreg intercropping $interest $xlist $tlist i.year, fe r
-	outreg2 using Result_rc_1.tex, append ctitle (Intercropping) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	
-	
-	
-xtreg crop_rotation $interest $xlist $tlist i.year i. district_1, fe r
-	outreg2 using Result_rc_1.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	
-	
-	
-xtreg crop_rotation $interest $xlist $tlist i.year, fe r
-	outreg2 using Result_rc_1.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	
-	
-
-xtreg adopt $interest $xlist $tlist i.year i. district_1, fe r
-	outreg2 using Result_rc_1.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-	
-	
-	
-	
-xtreg adopt $interest $xlist $tlist i.year, fe r
-	outreg2 using Result_rc_1.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	
-	
-xtreg organic_fert $interest $xlist $tlist i.year i. district_1, fe r
-	outreg2 using Result_rc_1.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	
-	
-	
-xtreg organic_fert $interest $xlist $tlist i.year, fe r
-	outreg2 using Result_rc_1.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-	
-
-
-
-
-**********************************
-
-
-***Result12: Hausman Taylor estimation
-
-xthtaylor intercropping $interest $xlist , endog($interest)
-	outreg2 using Result_rc_2.tex, replace ctitle (Intercropping) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-
-	
-
-	
-	
-	
-xthtaylor crop_rotation $interest $xlist , endog($interest)
-	outreg2 using Result_rc_2.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	
-	
-	
-
-	
-
-xthtaylor adopt $interest $xlist , endog($interest)
-	outreg2 using Result_rc_2.tex, append ctitle (Improved Seeds) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-	
-	
-	
-	
-
-	
-	
-xthtaylor organic_fert $interest $xlist , endog($interest)
-	outreg2 using Result_rc_2.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-	
-	
-	
-
-	
-	
-
-**********************
-
-xthtaylor adopt $interest $xlist, endog($interest)
-	outreg2 using Result12.tex, replace ctitle (Improved seeds) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-
-xthtaylor fertilisers $interest $xlist, endog($interest)
-	outreg2 using Result12.tex, append ctitle (Fertilisers) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-xthtaylor pesticide $interest $xlist, endog($interest)
-	outreg2 using Result12.tex, append ctitle (Pesticides) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-xthtaylor credit_cash $interest $xlist, endog($interest)
-	outreg2 using Result12.tex, append ctitle (Credit) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-
-	
-***Result13: Hausman Taylor estimation
-xthtaylor intercropping $interest $xlist, endog($interest)
-	outreg2 using Result13.tex, replace ctitle (Intercropping) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-xthtaylor intercropping $interest $xlist, endog($interest)
-	outreg2 using Result13.tex, append ctitle (Intercropping) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
-xthtaylor crop_rotation $interest $xlist, endog($interest)
-	outreg2 using Result13.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-	
-xthtaylor crop_rotation $interest $xlist, endog($interest)
-	outreg2 using Result13.tex, append ctitle (Crop Rotation) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, No, Year FE, Yes)
-	
+xi: xthtaylor intercropping $interest $xlist i.year i.district_1 , endog($interest) vce(r)
+xi: outreg2 using Hausman.tex, append ctitle (Intercropping) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
 		
-****Result14: Quantities of fertliser and pesticides
-xtreg ihs_pest extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
-outreg2 using Result14.tex, replace ctitle (Pesticides) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
-
-	outreg2 using Result1_14, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub)  addstat(F test, e(F)) long  nocons  nonotes noparen dec(3) quote lab replace
-
-xtreg ihs_org extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
-outreg2 using Result14.tex, append ctitle (Organic fertlisers) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-
-outreg2 using Result1_14, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub)  addstat(F test, e(F)) long  nocons  nonotes noparen dec(3) quote lab append
-
-xtreg ihs_chem extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
-outreg2 using Result14.tex, append ctitle (Chemical fertilisers) dec(3) lab tex(frag pr land) keep(extension_priv extension_pub $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes) 
-
-outreg2 using Result1_14, sideway stats(coef se aster  ci_low ci_high ) keep (extension_priv extension_pub)  addstat(F test, e(F)) long  nocons  nonotes noparen dec(3) quote lab append
+xi: xthtaylor organic_fert $interest $xlist i.year i.district_1 , endog($interest) vce(r)
+xi: outreg2 using Hausman.tex, append ctitle (Organic Fertilisers) dec(3) lab tex(frag pr land) keep($interest $xlist) addtext(Additional controls, Yes, District FE, Yes, Year FE, Yes)
 
 
 
 
 
+***Imben's sensitivity check (Imbens, G. W. (2003) / Sensitivity to exogeneity assumptions in program evaluation. American Economic Review, 93(2), 126-132)
+
+tesensitivity cpi (crop_rotation $xlist $tlist i.year i. district_1) (exten2 $xlist $tlist i.year i. district_1), ate
+estimates store exten2
+tesensitivity cpi (crop_rotation $xlist $tlist i.year i. district_1) (exten3 $xlist $tlist i.year i. district_1), ate 
+estimates store exten3 
+tesensitivity cpi (crop_rotation $xlist $tlist i.year i. district_1) (exten4 $xlist $tlist i.year i. district_1), ate 
+estimates store exten4
+
+tesensitivity cpitable exten2 exten3 exten4
+
+tesensitivity cpi (adopt $xlist $tlist i.year i. district_1) (exten2 $xlist $tlist i.year i. district_1), ate
+tesensitivity cpi (adopt $xlist $tlist i.year i. district_1) (exten3 $xlist $tlist i.year i. district_1), ate 
+tesensitivity cpi (adopt $xlist $tlist i.year i. district_1) (exten4 $xlist $tlist i.year i. district_1), ate 
+
+tesensitivity cpi (intercropping $xlist $tlist i.year i. district_1) (exten2 $xlist $tlist i.year i. district_1), ate
+tesensitivity cpi (intercropping $xlist $tlist i.year i. district_1) (exten3 $xlist $tlist i.year i. district_1), ate  
+tesensitivity cpi (intercropping $xlist $tlist i.year i. district_1) (exten4 $xlist $tlist i.year i. district_1), ate 
+
+tesensitivity cpi (organic_fert $xlist $tlist i.year i. district_1) (exten2 $xlist $tlist i.year i. district_1), ate
+tesensitivity cpi (organic_fert $xlist $tlist i.year i. district_1) (exten3 $xlist $tlist i.year i. district_1), ate  
+tesensitivity cpi (organic_fert $xlist $tlist i.year i. district_1) (exten4 $xlist $tlist i.year i. district_1), ate 
 
 
-xtreg adopt extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
 
-margins, dydx(*) post
+/******************************Breackdown******************************/
+*regression breakdown calculates the maximum value of a sensitivity parameter under which a given hypothesis holds for all values of the regression coefficients in the identified set.
 
-marginsplot, horizontal xline(0) yscale(reverse) recast(scatter)
+/*Private extension*/
+local y10 crop_rotation
+local y11 adopt
+local y12 intercropping
+local y13 organic_fert
+
+local x exten2
+local w1 $xlist 
+local w0 $tlist
+local w `w1' `w0'
+local cluster (district)
+
+regsensitivity breakdown `y10' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y10' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Crop Rotation") boundcolors ("red")
+graph save "bd_privatext_crop.gph", replace
 
 
+regsensitivity breakdown `y11' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y11' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Improved seeds") boundcolors ("red")
+graph save "bd_privatext_adopt.gph", replace
 
-xtreg adopt extension_priv extension_pub $xlist $tlist i.year i. district_1, re r
+regsensitivity breakdown `y12' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y12' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Intercropping") boundcolors ("red")
+graph save "bd_privatext_interc.gph", replace
 
-coefplot, keep(extension_priv extension_pub) yline(0) 
+regsensitivity breakdown `y13' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y13' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Organic Fertilisers") boundcolors ("red")
+graph save "bd_privatext_org.gph", replace
 
-coefplot, keep(extension_priv extension_pub) xline(0) msymbol(d) mcolor(white) levels(99 95 90 80 70) ciopts(lwidth(3 ..) lcolor(*.2 *.4 *.6 *.8 *1))  legend(order(1 "99" 2 "95" 3 "90" 4 "80" 5 "70") row(1))
+graph combine bd_privatext_crop.gph bd_privatext_adopt.gph bd_privatext_interc.gph bd_privatext_org.gph, cols(2) title("Private extension")
+graph save combined_private.gph, replace
+graph export combined_private.png, replace
+
+
+/*Public extension*/
+local y10 crop_rotation
+local y11 adopt
+local y12 intercropping
+local y13 organic_fert
+
+local x exten3
+local w1 $xlist 
+local w0 $tlist
+local w `w1' `w0'
+local cluster (district)
+
+regsensitivity breakdown `y10' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y10' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Crop Rotation") boundcolors ("red")
+
+graph save "bd_publicext_crop.gph", replace
+
+regsensitivity breakdown `y11' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y11' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Improved seeds") boundcolors ("red")
+
+graph save "bd_publicext_adopt.gph", replace
+
+regsensitivity breakdown `y12' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y12' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Intercropping") boundcolors ("red")
+
+graph save "bd_publicext_interc.gph", replace
+
+regsensitivity breakdown `y13' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y13' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Organic Fertilisers") boundcolors ("red")
+
+graph save "bd_publicext_org.gph", replace
+
+graph combine bd_publicext_crop.gph bd_publicext_adopt.gph bd_publicext_interc.gph bd_publicext_org.gph, cols(2) title("Public extension")
+graph save combined_public.gph, replace
+graph export combined_public.png, replace
+
+/*Both public and private extension*/
+local y10 crop_rotation
+local y11 adopt
+local y12 intercropping
+local y13 organic_fert
+
+local x exten4
+local w1 $xlist 
+local w0 $tlist
+local w `w1' `w0'
+local cluster (district)
+
+regsensitivity breakdown `y10' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y10' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Crop Rotation") boundcolors ("red")
+
+graph save "bd_bothext_crop.gph", replace
+
+regsensitivity breakdown `y11' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y11' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Improved seeds") boundcolors ("red")
+
+graph save "bd_bothext_adopt.gph", replace
+
+regsensitivity breakdown `y12' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y12' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Intercropping") boundcolors ("red")
+
+graph save "bd_bothext_interc.gph", replace
+
+regsensitivity breakdown `y13' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) plot
+regsensitivity bounds `y13' `x' `w', compare(`w') cbar (0(.2)1) rxbar(0(.2)2) 
+regsensitivity plot, title("Organic Fertilisers") boundcolors ("red")
+graph save "bd_bothext_org.gph", replace
+
+graph combine bd_bothext_crop.gph bd_bothext_adopt.gph bd_bothext_interc.gph bd_bothext_org.gph, cols(2) title("Joint Public-private extension")
+graph save combined_joint.gph, replace
+graph export combined_joint.png, replace
